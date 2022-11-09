@@ -13,3 +13,28 @@ This paper is about the number 3. The number 4 is left for future work.
 [Download paper here](http://academicpages.github.io/files/paper3.pdf)
 
 Recommended citation: Your Name, You. (2015). "Paper Title Number 3." <i>Journal 1</i>. 1(3).
+
+
+
+## Publications
+Gil Levi. Connecting Supervised and Unsupervised Sentence Embeddings. Third Workshop on Representation Learning for NLP, ACL 2018. [[paper]](https://aclanthology.org/W18-3010.pdf)
+
+Gil Levi, Pinhas Nisnevich, Adiel Ben-Shalom, Nachum Dershowitz, and Lior Wolf. A Method for Segmentation, Matching and Alignment of Dead Sea Scrolls. WACV2018 [[paper]](http://www.cs.tau.ac.il/~nachumd/papers/SegmentationMatching.pdf) [[WACV18 video]](https://www.youtube.com/watch?v=4jNTJkK37pc)
+
+Dotan Kaufman, Gil Levi, Tal Hassner, and Lior Wolf. Temporal tessellation: A unified approach for video analysis. ICCV 2017, spotlight paper. [[paper]](https://www.cs.tau.ac.il/~wolf/papers/tessellation.pdf) [[project page]](https://talhassner.github.io/home/publication/2017_ICCV_2)
+
+Christopher Parker, Matthew Daiter, Kareem Omar, Gil Levi and Tal Hassner. The CUDA LATCH Binary Descriptor: Because Sometimes Faster Means Better. Workshop on Local Features: State of the art, open problems and performance evaluation, ECCV 2016 [[paper]](https://talhassner.github.io/home/projects/LATCH/CLATCH_ECCV2016.pdf) [[project page]](https://talhassner.github.io/home/publication/2016_ECCV)
+
+Gil Levi and Tal Hassner. LATCH: Learned Arrangements of Three Patch Codes. WACV 2016 [[paper]](https://talhassner.github.io/home/projects/LATCH/LATCH.pdf) [[project page]](https://talhassner.github.io/home/publication/2016_WACV_2)
+
+Gil Levi and Tal Hassner. Emotion Recognition in the Wild via Convolutional Neural Networks and Mapped Binary Patterns. ACM International Conference on Multimodal Interaction (ICMI), 2016 [[paper]](https://talhassner.github.io/home/projects/cnn_emotions/LeviHassner_ICMI15.pdf)[[project page]](https://talhassner.github.io/home/publication/2015_ICMI)
+
+Gil Levi and Tal Hassner.Age and Gender Classification Using Convolutional Neural Networks. IEEE Workshop on Analysis and Modeling of Faces and Gestures (AMFG), CVPR 2015. [[paper]](https://talhassner.github.io/home/projects/cnn_agegender/CVPR2015_CNN_AgeGenderEstimation.pdf) [[project page]](https://talhassner.github.io/home/publication/2015_CVPR)
+
+## Patents
+Method and system for computer-aided triage of stroke (hemorrhagic stroke). [[google patents]](https://patents.google.com/patent/US11462318B2/en)
+
+Method and system for computer-aided aneurysm triage. [[google patents]](https://patents.google.com/patent/US11328400B2/en)
+
+Method and system for computer-aided triage of stroke (early ischemic changes) [[google patents]](https://patents.google.com/patent/US10902602B1/en)
+
