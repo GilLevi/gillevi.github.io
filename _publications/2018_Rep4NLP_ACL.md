@@ -6,7 +6,7 @@ excerpt: ''
 date: 2015-10-01
 venue: 'Third Workshop on Representation Learning for NLP, ACL 2018'
 paperurl: ''
-citation: ''
+# citation: ''
 ---
 
 [Download paper here](http://academicpages.github.io/files/paper3.pdf)
