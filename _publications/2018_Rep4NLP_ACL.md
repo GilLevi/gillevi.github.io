@@ -6,7 +6,7 @@ excerpt: ''
 date: 2015-10-01
 venue: 'Third Workshop on Representation Learning for NLP, ACL 2018'
 paperurl: ''
-citation: 'Gil Levi. Connecting Supervised and Unsupervised Sentence Embeddings. Third Workshop on Representation Learning for NLP, ACL 2018'
+citation: ''
 ---
 
 [Download paper here](http://academicpages.github.io/files/paper3.pdf)
