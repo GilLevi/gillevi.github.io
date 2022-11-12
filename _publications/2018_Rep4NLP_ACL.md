@@ -2,11 +2,10 @@
 title: "Connecting Supervised and Unsupervised Sentence Embeddings"
 collection: publications
 permalink: /publication/2018_Rep4NLP_ACL
-excerpt: ''
+excerpt: '[<font color="SkyBlue"><i>Download paper</i></font>](../projects/sent_embed/GilLeviRep4NLP_ACL18.pdf)'
 date: 2018-07-01 
 venue: 'The Third Workshop on Representation Learning for NLP, ACL'
-paperurl: '[<font color="SkyBlue"><i>Download paper</i></font>](../projects/sent_embed/GilLeviRep4NLP_ACL18.pdf
-.pdf)'
+paperurl: ''
 citation: 'Gil Levi. <i>Connecting Supervised and Unsupervised Sentence Embeddings</i>. Proceedings of The Third Workshop on Representation Learning for NLP. 2018.'
 ---
 
