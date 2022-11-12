@@ -15,4 +15,4 @@ author_profile: true
 {% endfor %}
 
 
-# Temporal Tessellation: A Unified Approach for Video Analysis
+## [Temporal Tessellation: A Unified Approach for Video Analysis](https://talhassner.github.io/home/publication/2017_ICCV_2)
