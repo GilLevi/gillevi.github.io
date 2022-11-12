@@ -16,3 +16,5 @@ author_profile: true
 
 
 ## [Temporal Tessellation: A Unified Approach for Video Analysis](https://talhassner.github.io/home/publication/2017_ICCV_2)
+Dotan Kaufman, Gil Levi, Tal Hassner, and Lior Wolf. Temporal Tessellation: A Unified Approach for Video Analysis. International Conference on Computer Vision (ICCV), 2017.
+
