@@ -1,6 +1,6 @@
 ---
 title: 'Random papers November 2022 edition'
-date: 2015-08-14
+date: 2022-11-14
 permalink: /posts/random_papers_nov_22
 tags:
   - arxiv
