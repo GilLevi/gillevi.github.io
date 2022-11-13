@@ -52,8 +52,10 @@ Gil Levi and Tal Hassner.Age and Gender Classification Using Convolutional Neura
 
 
 ### [Method and system for computer-aided triage of stroke](https://patents.google.com/patent/US11462318B2/en)
+A system and algorithm for detecting and measuring early ischemic changes in non-contrast CT scans.
 
-### [Method and system for computer-aided aneurysm triage]
+### [Method and system for computer-aided aneurysm triage](https://patents.google.com/patent/US11328400B2/en)
+A system and algorithm for detecting and measuring cerebral aneurysms in CT scans.
 
-### [Method and system for computer-aided triage of stroke]
-
+### [Method and system for computer-aided triage of stroke](https://patents.google.com/patent/US10902602B1/en)
+A system and algorithm for detecting and segmenting Intracerebral Hemorrhage from CT scans.
