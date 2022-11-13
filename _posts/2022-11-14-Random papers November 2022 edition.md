@@ -1,11 +1,13 @@
 ---
-title: 'Blog Post number 4'
+title: 'Random papers November 2022 edition'
 date: 2015-08-14
-permalink: /posts/2012/08/blog-post-4/
+permalink: /posts/random_papers_nov_22
 tags:
-  - cool posts
-  - category1
-  - category2
+  - arxiv
+  - Deep Learning
+  - Computer Vision
+  - Research
+  - Papers
 ---
 
 This is a sample blog post. Lorem ipsum I can't remember the rest of lorem ipsum and don't have an internet connection right now. Testing testing testing this blog post. Blog posts are cool.
