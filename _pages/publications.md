@@ -43,10 +43,10 @@ Gil Levi and Tal Hassner.Age and Gender Classification Using Convolutional Neura
 
 
 
-### Patents
-Method and system for computer-aided triage of stroke
+# Patents
+### [Method and system for computer-aided triage of stroke](https://patents.google.com/patent/US11462318B2/en)
 
-Method and system for computer-aided aneurysm triage
+### [Method and system for computer-aided aneurysm triage]
 
-Method and system for computer-aided triage of stroke
+### [Method and system for computer-aided triage of stroke]
 
