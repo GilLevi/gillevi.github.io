@@ -10,15 +10,24 @@ tags:
   - Papers
 ---
 
+Random (interesting) papers: Contrastive masked autoencoder, training captioning models without images, improved training scheme for ViT and more. 
+
+
 As the title suggests, here I'll survey random interesting papers I came across. There's no real common theme connecting the papers, aside from me finding them really cool and having published this month 🤷‍♂️. I do try to give a relatively detailed overview so the reader can get the gist of work, but I definitely may skip things and possibly made errors, so feel free to comment, especially if you're by any chance one of the authors. 
 
-CAN - A simple, efficient and scalable contrastive masked autoencoder for learning visual representations
+CAN - A simple, efficient and scalable contrastive masked autoencoder for learning visual representations 
 ======
-[Arxiv] [code] subjects: semi-supervised learning, contrastive learning
+[Arxiv](https://arxiv.org/abs/2210.16870) [code] subjects: semi-supervised learning, contrastive learning
 
-Very cool paper that combines several ideas from self supervised learning (SSL), namely contrastive loss (most notably, SimCLR [1]) reconstruction of masked patches (most notably "Masked Autoencoders Are Scalable Vision Learners" [2]) and denoising autoencoder. Their pipeline works as follows: take an input image, generate 2 different views by applying augmentations, mask 50% of the patches, add Gaussian noise to the unmasked patches and feed the resulting noisy masked image to a ViT encoder. Now, we take the encoding of the unmasked patches, perform mean pooling, pass to a light MLP and perform contrastive learning, which gives us our contrastive loss. The encoded "patch image" is passed to a ViT decoder to perform reconstruction of the masked patches and denoising of the unmasked noisy patches, which gives us the reconstruction loss and the denoising loss. I'm skipping over a few technical details, such as feeding the noise level to the decoder and learning a "mask" indicator token.
+In my opinion, a pretty neat paper that combines several ideas from self supervised learning (SSL), namely contrastive loss (most notably, SimCLR [1]) reconstruction of masked patches (most notably "Masked Autoencoders Are Scalable Vision Learners" [2]) and denoising autoencoder. Their pipeline is summarized in the fiture below and works as follows: take an input image, generate 2 different views by applying augmentations, mask 50% of the patches, add Gaussian noise to the unmasked patches and feed the resulting noisy masked image to a ViT encoder.  Now, we take the encoding of the unmasked patches, perform mean pooling, pass to a light MLP and perform apply contrastive loss (hence, the "contrastive" in the title). The encoded "patch image" is passed to a ViT decoder to perform reconstruction of the masked patches and denoising of the unmasked noisy patches, which gives us the both reconstruction loss and the denoising loss. 
 
-The results demonstrate improved or on-par performance with recent SSL methods as measured on ImageNet 1K when finetuning or when using linear probing, both with pre-training on JFT-300 and pre-training on Imagenet. The result shows that it scales well to JFT-300, hence the "scalable" part of the title. The method is also faster than methods which use the full image views, as it only "uses" 50% of the tokens in both views of the image (as opposed to SimCLR for example) and does not use multiple views per image (such as DINO [3] or SwAV [4] which uses multi-crop to reduce the additional memory use), hence the "efficient" in the title. The paper is overall simple and elegant, does not use momentum encoder, hence the "simple" in the title. I should point out that it does not beat all other methods on all datasets, but the overall trade-off between results and simplicity is very good in my opinion and I also really like the combination of the different "trends" in SSL. 
+Motivated by diffusion transformers[] , the method provides the decoder with information about the noise level. Now, as the noise is modelled a simple zero mean Gaussian with standard deviation sigma, the noise level information is simply encoded by taking a sinusoidal embedding of sigma, passing it to a light MLP to produce a (learned) embedding for sigma which is added to the noised patches before feeding them to the decoder. The authors provide an abalation of this compoenent which demonstrate that simply adding noise as an augmentation improves the performance of the system even without the denoising loss and that adding the denoising loss improves it even further, but only when the decoder is "informed" by the nosie level. Adding the denosing loss without incorporating the noise level information  provides worse results. The authors do not motivate it in the paper, TODO: add explanation. 
+
+
+
+The results demonstrate improved or on-par performance with recent SSL methods as measured on ImageNet 1K when finetuning or when using linear probing, both with pre-training on JFT-300 [] and pre-training on Imagenet []. The result shows that it scales well to JFT-300, hence the "scalable" part of the title. The method is also faster than methods which use the full image views, as it only "uses" 50% of the tokens in both views of the image (as opposed to SimCLR for example which augmentes the entire image) and does not use multiple views per image (such as DINO [3] or SwAV [4] which uses multi-crop to reduce the additional memory use), hence the "efficient" in the title. The paper is overall simple and elegant, does not use momentum encoder, hence the "simple" in the title. I should point out that it does not beat all other methods on all datasets, but the overall trade-off between results and simplicity is very good in my opinion. This isthe main selling point of the paper: combining different semi-supervised techniqes in a way which complement each other to obtain a unifed *simple* and *efficient* systmem. Keep ind the mtehod can also be exteneded by adding a ultiple view,s momentum encoder or a c"lassification loss" and tokensizer similarlt yo beit
+
+
 
 
 
@@ -53,6 +62,18 @@ Using the LAMB [13] optimizer.
 Simple Random Crop: which resizes the input image such that the smallest side matches the training resolution and randomly samples square crops in that resolution. 
 
 Below is a table summarizing the training recipe, including all hyperparameters and compares it to previous methods:
+
+The paper presents several experiments demonstrating the effectiveness of the improved training recipe. First, they show a significant improvement gap compared to vanilla ViT and DeiT training recipes, measured on ImageNet 1k and ImageNet 21k:
+
+
+In addition, the paper demonstrates on-par performance with recent architectures, such as ConvNext and Swin, measured on ImageNet 1k and ImageNet 21k, see tables below:
+
+
+The paper also demonstrates improved performance in transfer learning on semantic segmentation, measured on ADE20k [14] dataset:
+
+
+All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of paper and one might argue that it does not hold enough technical novelty to be presented at a top-tier conference such as ECCV. In my opinion, this is hardly the case. While the novelty is limited (and the authors do not argue otherwise in the text), saying “hey, you can get really good results with vanilla ViT just by playing with the training a bit, no need for any bells and whistles” is a strong contribution. 
+
 
 
 References
