@@ -40,6 +40,21 @@ The method of course performance worse than state of the art supervised methods,
 
 The authors also show strong performance on style-guided image captioning, a task where the method requires to generate captions in a certain text style in which labeled image-text data can be limited.
 
+DeiT III: Revenge of the ViT
+======
+I’ll start with DeiT III: Revenge of the ViT. The goal of the paper is to provide an improved training recipe for “vanilla” ViT in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer “engineered like” architectural changes to vanilla ViT (perhaps most notable is the Swin transformer), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper also co-authored by Hugo Touvron, “ResNet strikes back: An improved training procedure in timm” [9] which offers an improved training receipt for ResNets to achieve a stronger baseline and of course is a follow to the first DeiT [1] paper. Fun fact, there is no DeiT2 ! 
+
+DeiT III is sort of a response to several lines of work: improved ViT architectures such as Swin [9], improved ConvNet architecture such as ConvNext [10] and self-supervised training methods for ViT such as BEiT [11]. The paper suggest several training strategies that improve ViT performance such that training scales to larger model size without saturating, training time is reduced and the final models reach better or on par performance with Swin[9], ConveNext[10] and other recent architecture as well using BeiT[11] like training when benchmarked on ImageNet 1K, ImageNet 21K and downstream tasks. The training strategy is composed of following techniques:
+Stochastic Depth [12] which randomly drops layers in the network during training. 
+LayerScale[4] which normalizes each channel of the matrix produced by Multi-Head Self Attention (MSHA) and Feed Forward Network (FFN) blocks using a different learned constant. 
+Replacing Cross Entropy (CE) with Binary Cross Entropy similarly to [9] which provides an improvement in some of the experiments. 
+Using the LAMB [13] optimizer.
+3-Augment: a simple augmentation method composed of either grayscaling, solarization or Gaussian blur (with equal probability) followed by color jittering and horizontal flip. 
+Simple Random Crop: which resizes the input image such that the smallest side matches the training resolution and randomly samples square crops in that resolution. 
+
+Below is a table summarizing the training recipe, including all hyperparameters and compares it to previous methods:
+
+
 References
 ======
 
