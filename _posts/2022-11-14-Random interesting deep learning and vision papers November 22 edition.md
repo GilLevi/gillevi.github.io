@@ -75,6 +75,8 @@ The paper also demonstrates improved performance in transfer learning on semanti
 All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of paper and one might argue that it does not hold enough technical novelty to be presented at a top-tier conference such as ECCV. In my opinion, this is hardly the case. While the novelty is limited (and the authors do not argue otherwise in the text), saying “hey, you can get really good results with vanilla ViT just by playing with the training a bit, no need for any bells and whistles” is a strong contribution. 
 
 
+Fast Vision Transformers with HiLo Attention
+======
 
 References
 ======
