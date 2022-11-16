@@ -21,18 +21,8 @@ CAN - A simple, efficient and scalable contrastive masked autoencoder for learni
 
 In my opinion, a very neat paper that combines several ideas from self supervised learning (SSL), namely contrastive loss (most notably, SimCLR [1]) reconstruction of masked patches (most notably "Masked Auto-encoders Are Scalable Vision Learners" [2]) and denoising autoencoder. Their pipeline is summarized in the figure below and works as follows: given an input image, generate 2 different views by applying augmentations, mask 50% of the patches, add Gaussian noise to the unmasked patches and feed the resulting noisy masked image to a ViT encoder. Now, we take the encoding of the unmasked patches, perform mean pooling, pass to a light MLP and apply contrastive loss (hence, the "contrastive" in the title). The encoded "patch image" is then passed to a ViT decoder to perform reconstruction of the masked patches and denoising of the unmasked noisy patches, which gives us the both reconstruction loss and the denoising loss. 
 
-<img src='/random_papers_nov22/The%20CAN%20framework.png'><br/>
-<b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives
 
-<div class="imgcap">
-<img src='/random_papers_nov22/Denoising.png'>
-</div>
-
-<img src='/random_papers_nov22/Denoising.png'><br/>
-<b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives
-
-
-<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/The%20CAN%20framework.png'><br/>
+<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/The_20CAN_20framework.png'><br/>
 <b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives
 
 
