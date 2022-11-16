@@ -83,13 +83,31 @@ All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of 
 
 Fast Vision Transformers with HiLo Attention
 ======
-
-
 The paper addresses efficient Vision Transformers (ViTs) design. The paper argues that while previous works on designing efficient ViTs have considered the theoretical asymptotic computational complexity and computational complexity measured in floating point operations (FLOPS) and memory, those metrics do not capture the actual running time and throughput. Specifically, the paper argues that previous methods might require low number of FLOPs (or lower asymptotic complexity), but in practise their implementation is not hardware friendly thus slow when running on GPU. The paper proposes to benchmark FLOPS, memory consumption and actual running time (on GPU) and further proposes a ViT design that performs favourably in those metrics while providing high accuracy when used as a backbone in various vision tasks, namely: image classification, object detection, instance segmentation and semantic segmentation.
 
 The proposed ViT architecture is based on separating the MultiHead Self Attention (MSA) heads into 2 groups - one group performs local window self attention to capture local fine grained details characterised by high frequencies and the second group performs global self attention on a downscaled (in practice - average pooling in each high res window) version of the feature map to capture global structures characterised by low frequencies. The total number of MSA heads are divided between the groups such that 1-alpha of the heads belong to the first group (local windowed self attention on the full resolution feature map) and alpha of the heads belong to the second group (global attention on the downscaled feature map). Their method is thus dubbed HiLo to denote the different attention branches working on High and Low frequencies. Regarding the value of alpha - the authors provide an experiment to measuring the effect of different choices of alpha and when measuring on the various benchmarks alpha is set to 0.9, so in practice 10% and 90% of the MSA heads belong to the high and low frequencies branch, respectively. Note that in the low frequency brach, keys and values are computed on the downscaled feature map, but the queries still come from the high frequency branch. Also, to further speed up the method, the authors replace explicit positional encoding by adding a layer of 3x3 depth-wise convolution in each Feed Forward block.
 
 Finally, to demonstrate the effectiveness of their approach, the authors compare their methods to other ViT architecture in classification on ImageNet 1K as well as when using their architecture as a backbone (weights are initialised from the ImageNet trained model) in object detection and instance segmentation (measured on COCO) and semantic segmentation (measured on ADE20K). The experiments demonstrate relatively high speed, low number of FLOPS and high accuracy of the proposed method compared to other ViT architectures and efficient attention mechanisms.
+
+
+UniCL: Unified Contrastive Learning in Image-Text-Label Space
+======
+A very cute paper that tries to unified regular supervised learning and text and image contrastive learning. There isn't a lot of novelty in the paper, but the approach and some of the experiments are very interesting, specifically where it uses regular labels as text and check if that improves results is very interesting. 
+
+Basically they say that every image-text pair has a unique label and every image-label pair can be views as several image-text pairs with texts such as "an image of a <label>", "a photo of a <label>", "a <label>".
+
+Table 3 is very interesting where they show that by considering labels as text in the loss function you can get an improvement and if you encoder the label text using a more sophisticated text embedding (e.g. transformer instead of just a simple fully connecter layer label embedding) you can get an additional improvement. 
+
+Explanations on some parts in the paper:
+
+Equation 2 - the i'th text can correspond to more than one image (since we have stuff like "a photo of a chihuahua" so all images of chihuahua correspond to it), so denote by P(i) the indices in the batch that corresponds to the label of the i'th text and k goes over all P(i).
+
+Same for equation 3 - the j'th image can correspond to more than one text (since we have stuff like a "photo of a chihuahua" and "an image of a chihuahua" both corresponding to the same image), so denote by by p(j) the indices in the batch that corresponds to the label the j'th text and k goes over P(j)
+
+Algorithm 1: 
+function TargetM: cap_m is the number of captions in the batch (number of text sentences). cls_m is the largest index of a label in the batch. In line 13, we simply assign, for each text caption, a label between cls_m + 1 and cap_m + cls_m + 1
+
+Table 1 - in Cifar100 the vocab size is 105 (and not 100) since there are labels with more than one word (vocab size is number of words). In imagenet 1K its a bit more than 1K for the same reason. In imagenet 22-k ›it's less, I guess since there are repeating words. 
 
 
 References
