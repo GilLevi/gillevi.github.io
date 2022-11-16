@@ -17,9 +17,12 @@ As the title suggests, in this blog post I'll survey random interesting papers I
 
 CAN - A simple, efficient and scalable contrastive masked autoencoder for learning visual representations 
 ======
-[Arxiv](https://arxiv.org/abs/2210.16870) [code] subjects: semi-supervised learning, contrastive learning
+[Arxiv](https://arxiv.org/abs/2210.16870) Keywords: semi-supervised learning, contrastive learning
 
 In my opinion, a very neat paper that combines several ideas from self supervised learning (SSL), namely contrastive loss (most notably, SimCLR [1]) reconstruction of masked patches (most notably "Masked Auto-encoders Are Scalable Vision Learners" [2]) and denoising autoencoder. Their pipeline is summarized in the figure below and works as follows: given an input image, generate 2 different views by applying augmentations, mask 50% of the patches, add Gaussian noise to the unmasked patches and feed the resulting noisy masked image to a ViT encoder. Now, we take the encoding of the unmasked patches, perform mean pooling, pass to a light MLP and apply contrastive loss (hence, the "contrastive" in the title). The encoded "patch image" is then passed to a ViT decoder to perform reconstruction of the masked patches and denoising of the unmasked noisy patches, which gives us the both reconstruction loss and the denoising loss. 
+
+<img src='../_posts/random_papers_nov22/The CAN framework.png'><br/>
+<b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:<br/> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</br> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</br> pooled patches are passed to a contrastive loss, using in-batch samples as negatives
 
 Motivated by diffusion transformers[3] , the method provides the decoder with information about the noise level. Now, as the noise is modelled a simple zero mean Gaussian with standard deviation sigma, the noise level information can be simply encoded by taking a sinusoidal embedding of sigma, passing it to a light MLP to produce a (learned) embedding for sigma which is added to the noised patches before feeding those to the decoder. Below is a figure describing this process:
 
