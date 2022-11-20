@@ -30,7 +30,7 @@ In my opinion, a very neat paper that combines several ideas from self supervise
 <b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives
 
 
-<img src='../random_papers_nov22/the_can_framework.png'><br/>
+<img src='./random_papers_nov22/the_can_framework.png'><br/>
 <b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives
 
 
