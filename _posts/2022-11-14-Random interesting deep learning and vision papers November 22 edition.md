@@ -27,7 +27,7 @@ In my opinion, a very neat paper that combines several ideas from self supervise
 
 Motivated by diffusion transformers[3], the method provides the decoder with information about the noise level. Now, as the noise is modelled a simple zero mean Gaussian with standard deviation $\sigma$, the noise level information can be simply encoded by taking a sinusoidal embedding of $\sigma$, passing it to a light MLP to produce a (learned) embedding for $\sigma$ which is added to the noised patches before feeding those to the decoder. Below is a figure describing this process:
 
-<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Denoising.png'><br/>
+<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Denoising.png'> <br/>
 <b>Denoising:</b> Both the encoded patches and the noise level $\sigma$ are passed to the decoder by passing $\sigma$ through an MLP, and adding the result to each embedded token.
 
 The authors provide an ablation of this component which demonstrate that simply adding noise as an augmentation also improves the performance of the system even without the denoising loss. However, adding the denoising loss without incorporating the noise level information provides worse results while incorporating it outperforms noise augmentation, demonstrating the necessity of this component (see table 1 and ablation discussion in section 3.4).
@@ -35,10 +35,10 @@ The authors provide an ablation of this component which demonstrate that simply 
 
 The results demonstrate improved or on-par performance with recent SSL methods as measured on ImageNet 1K when finetuning or when using linear probing, both with and without pre-training on JFT-300 [4] or on Imagenet [5]:
 
-<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/CAN_table2.png' width='400' height='400'/>
+<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/CAN_table2.png' width='400' height='400'/> <br/>
 <b>JFT-300M pre-training:</b> Comparison to the state of the art on ImageNet linear probe. CAN outperforms all methods except DnC, which uses a complicated multi-stage training process. Computation is measured as ImageNet-equivalent epochs. †Our implementation.
 
-<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/CAN_table3.png' width='400' height='400'/>
+<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/CAN_table3.png' width='400' height='400'/> <br/>
 <b>Pre-training on ImageNet-1K</b> 
 
 The results also show that the method scales well to JFT-300, hence the "scalable" part of the title. The method is also faster than methods which use the full image views, as it only "uses" 50% of the tokens in both views of the image (as opposed to SimCLR for example which augments the entire image) and does not use multiple views per image (such as DINO [6] or SwAV [7] which uses multi-crop), hence the "efficient" in the title. The paper is overall simple and elegant, does not use momentum encoder, hence the "simple" in the title. I should point out that it does not beat all other methods on all datasets, but the overall trade-off between results and simplicity is very good in my opinion. This is the main selling point of the paper: combining different semi-supervised techniques in a way which complement each other to obtain a unifed *simple* and *efficient* system. Keep in mind that the method can also be extended by adding a multiple views, momentum encoder or a tokenizer and a masking objective (as in BeiT[8]) to further improve the results, of course with the cost of complexity and slower running times. 
