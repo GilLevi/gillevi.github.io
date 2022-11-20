@@ -24,19 +24,7 @@ In my opinion, a very neat paper that combines several ideas from self supervise
 
 | ![CAN](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/The_CAN_framework.png) | 
 |:--:| 
-| <b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives  |
-
-<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/the_can_framework.png'><br/>
-<b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives
-
-
-<img src='./random_papers_nov22/the_can_framework.png'><br/>
-<b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives
-
-
-<img src='the_can_framework.png'><br/>
-<b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives
-
+| <b>The CAN framework:</b>Two views of an image are generated, 50% of patches randomly masked in each, and noise is added to patches. An encoder is trained to solve three tasks: 1) <b>Reconstruction:</b> encoded patches are passed to a decoder that reconstructs missing patches, 2) <b>Denoise:</b> reconstructs the noise added to unmasked patches, and 3) <b>Contrast:</b> pooled patches are passed to a contrastive loss, using in-batch samples as negatives |
 
 
 Motivated by diffusion transformers[3], the method provides the decoder with information about the noise level. Now, as the noise is modelled a simple zero mean Gaussian with standard deviation $\sigma$, the noise level information can be simply encoded by taking a sinusoidal embedding of $\sigma$, passing it to a light MLP to produce a (learned) embedding for $\sigma$ which is added to the noised patches before feeding those to the decoder. Below is a figure describing this process:
@@ -63,7 +51,7 @@ Text-Only Training for Image Captioning using Noise-Injected CLIP
 
 Cool paper, simple and elegant. Training image captioning models commonly requires supervision in the form of image and text pairs. Given a text-only dataset (so no images and certainly no pairs), can we leverage CLIP's [9] strong image and text embedding capabilities to train a text-only image captioning model? turns out we can.
 
-As a reminder, given an image I with a corresponding text T, CLIP embeds I and T to a shared space where their embeddings are close. If we had image-text pairs, we could learn a decoder that given the CLIP image embedding as a starting point, reconstruct the text. However, in the above settings we don't have access to images at training time, so the authors propose to use the text embedding as a proxy for the image embedding instead. Specifically, given a dataset of sentences, we extract CLIP text embeddings from each sentence and learn a decoder which reconstruct the text from the text embedding and in inference time simply apply the decoder on the input image embedding instead.
+As a reminder, given an image *I* with a corresponding text *T*, CLIP embeds *I* and *T* to a shared space where their embeddings are close. If we had image-text pairs, we could learn a decoder that given the CLIP image embedding as a starting point, reconstruct the text. However, in the above settings we don't have access to images at training time, so the authors propose to use the text embedding as a proxy for the image embedding instead. Specifically, given a dataset of sentences, we extract CLIP text embeddings from each sentence and learn a decoder which reconstruct the text from the text embedding and in inference time simply apply the decoder on the input image embedding instead.
 
 This simple baseline performs poorly, as there is a gap between the image and the text embedding - the decoder is trained with the text embeddings, but in test time is applied to the image embeddings, which are close to the text embeddings, but not in the same position (for a given image-text pair).
 
