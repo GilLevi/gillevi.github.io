@@ -168,18 +168,19 @@ References
 
 [12] Xu, Kelvin, et al. "Show, attend and tell: Neural image caption generation with visual attention." International conference on machine learning. PMLR, 2015.
 
-[13] ViT
+[13] DeiT
   
-[14]
+[14] ViT
   
-[15]
+[15] PvT
   
-[16]
+[16] Swin
+[17] cVt
   
-[17]
+[18] Focal 
   
-[18]
+[19] Coatnet
   
-[19]
+[20]  Timm
   
-[20]
+[21] ConvNext
