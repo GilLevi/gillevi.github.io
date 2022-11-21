@@ -168,19 +168,20 @@ References
 
 [12] Xu, Kelvin, et al. "Show, attend and tell: Neural image caption generation with visual attention." International conference on machine learning. PMLR, 2015.
 
-[13] DeiT
+[13] Touvron, Hugo, et al. "Training data-efficient image transformers & distillation through attention." International Conference on Machine Learning. PMLR, 2021.
   
-[14] ViT
+[14] Dosovitskiy, Alexey, et al. "An image is worth 16x16 words: Transformers for image recognition at scale." arXiv preprint arXiv:2010.11929 (2020).
   
-[15] PvT
+[15] Wang, Wenhai, et al. "Pyramid vision transformer: A versatile backbone for dense prediction without convolutions." Proceedings of the IEEE/CVF International Conference on Computer Vision. 2021.
   
-[16] Swin
-[17] cVt
+[16] Liu, Ze, et al. "Swin transformer: Hierarchical vision transformer using shifted windows." Proceedings of the IEEE/CVF International Conference on Computer Vision. 2021.
   
-[18] Focal 
+[17] Wu, Haiping, et al. "Cvt: Introducing convolutions to vision transformers." Proceedings of the IEEE/CVF International Conference on Computer Vision. 2021.
   
-[19] Coatnet
+[18] Yang, Jianwei, et al. "Focal self-attention for local-global interactions in vision transformers." arXiv preprint arXiv:2107.00641 (2021). 
   
-[20]  Timm
+[19] Dai, Zihang, et al. "Coatnet: Marrying convolution and attention for all data sizes." Advances in Neural Information Processing Systems 34 (2021).
   
-[21] ConvNext
+[20]  Wightman, Ross, Hugo Touvron, and Hervé Jégou. "Resnet strikes back: An improved training procedure in timm." arXiv preprint arXiv:2110.00476 (2021).
+  
+[21] Liu, Zhuang, et al. "A convnet for the 2020s." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2022.
