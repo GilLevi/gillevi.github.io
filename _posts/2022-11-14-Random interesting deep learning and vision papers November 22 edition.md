@@ -66,7 +66,7 @@ The method is tested on MS-COCO[10] and Flickr 30k[11] image captioning benchmar
 
 | ![CapDec results for image captioning](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_table1.png) | 
 |:--:| 
-| <b>Results for image captioning:</b> . (A) We use captions from the COCO and Flickr30k to train CapDec and evaluate on the datasets the captions were taken from. We report results for fully supervised methods that train on captioned images, and on methods that use no training text (ZeroCap), or just training text and no images (CapDec and MAGIC). (B) Similar setting to (A), but in cross-domain setup where training text is taken from one dataset, and evaluation is done on the second dataset.
+| <b>Results for image captioning:</b> . <b>(A)</b> We use captions from the COCO and Flickr30k to train CapDec and evaluate on the datasets the captions were taken from. We report results for fully supervised methods that train on captioned images, and on methods that use no training text (ZeroCap), or just training text and no images (CapDec and MAGIC). <b>(B)</b> Similar setting to (A), but in cross-domain setup where training text is taken from one dataset, and evaluation is done on the second dataset.
 
 
 The authors also show strong performance on style-guided image captioning, a task where the method requires to generate captions in a certain text style in which labeled image-text data can be limited. Those results are summarised below along with several examples:
@@ -76,7 +76,7 @@ The authors also show strong performance on style-guided image captioning, a tas
 | <b>Style-Guided captioning results on FlickrStyle10K:</b> 
 
 
-| ![CapDec Style-Guided captioning results on FlickrStyle10K](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_table2.png) | 
+| ![CapDec Style-Guided captioning results on FlickrStyle10K](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_examples.png) | 
 |:--:| 
 | <b>Example for styled captions of CapDec on FlickrStyle10K</b> 
 
@@ -84,7 +84,7 @@ The authors also show strong performance on style-guided image captioning, a tas
 
 DeiT III: Revenge of the ViT
 ======
-The goal of the paper is to provide an improved training recipe for “vanilla” Vision Transformers (ViT) in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer “engineered like” architectural changes to vanilla ViT (perhaps most notable is the Swin transformer), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper also co-authored by Hugo Touvron, “ResNet strikes back: An improved training procedure in timm” [9] which offers an improved training receipt for ResNets to achieve a stronger baseline and of course is a follow to the first DeiT [1] paper. Fun fact, there is no DeiT2 ! 
+As hinted by the title, the paper is a follow up work to DeiT and co-authored by several of DeiT's authors. The goal of the paper is to provide an improved training recipe for “vanilla” Vision Transformers (ViT) [13] in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer various architectural changes (some motivated by ConvNets) to vanilla ViT (PVT, Swin, CvT, Focal Transformer and Coatnet to name a few), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper by the same , “ResNet strikes back: An improved training procedure in timm” [9] which offers an improved training receipt for ResNets to achieve a stronger baseline and of course is a follow to the first DeiT [1] paper. Fun fact, there is no DeiT2 ! 
 
 DeiT III is sort of a response to several lines of work: improved ViT architectures such as Swin [9], improved ConvNet architecture such as ConvNext [10] and self-supervised training methods for ViT such as BEiT [11]. The paper suggest several training strategies that improve ViT performance such that training scales to larger model size without saturating, training time is reduced and the final models reach better or on par performance with Swin[9], ConveNext[10] and other recent architecture as well using BeiT[11] like training when benchmarked on ImageNet 1K, ImageNet 21K and downstream tasks. The training strategy is composed of following techniques:
 Stochastic Depth [12] which randomly drops layers in the network during training. 
