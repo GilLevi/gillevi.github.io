@@ -48,7 +48,7 @@ The results also show that the method scales well to JFT-300, hence the "scalabl
 
 Text-Only Training for Image Captioning using Noise-Injected CLIP
 ======
-[Arxiv](https://arxiv.org/abs/2211.00575), Code(https://github.com/DavidHuji/CapDec), Keywords: CLIP, Image Captioning, NLP
+[Arxiv](https://arxiv.org/abs/2211.00575), [Code](https://github.com/DavidHuji/CapDec), Keywords: CLIP, Image Captioning, NLP
 
 Cool paper, simple and elegant. Training image captioning models commonly requires supervision in the form of image and text pairs. Given a text-only dataset (so no images and certainly no pairs), can we leverage CLIP's [9] strong image and text embedding capabilities to train a text-only image captioning model? turns out we can.
 
