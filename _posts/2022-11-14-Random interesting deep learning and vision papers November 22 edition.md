@@ -29,7 +29,7 @@ In my opinion, a very neat paper that combines several ideas from self supervise
 
 Motivated by diffusion transformers[3], the method provides the decoder with information about the noise level. Now, as the noise is modelled a simple zero mean Gaussian with standard deviation $\sigma$, the noise level information can be simply encoded by taking a sinusoidal embedding of $\sigma$, passing it to a light MLP to produce a (learned) embedding for $\sigma$ which is added to the noised patches before feeding those to the decoder. Below is a figure describing this process:
 
-<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Denoising.png'> <br/>
+<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/denoising2.png'> <br/>
 <b>Denoising:</b> Both the encoded patches and the noise level $\sigma$ are passed to the decoder by passing $\sigma$ through an MLP, and adding the result to each embedded token.
 
 The authors provide an ablation of this component which demonstrate that simply adding noise as an augmentation also improves the performance of the system even without the denoising loss. However, adding the denoising loss without incorporating the noise level information provides worse results while incorporating it outperforms noise augmentation, demonstrating the necessity of this component (see table 1 and ablation discussion in section 3.4).
@@ -56,13 +56,31 @@ As a reminder, given an image *I* with a corresponding text *T*, CLIP embeds *I*
 
 This simple baseline performs poorly, as there is a gap between the image and the text embedding - the decoder is trained with the text embeddings, but in test time is applied to the image embeddings, which are close to the text embeddings, but not in the same position (for a given image-text pair).
 
-Let us assume that for each image-text pair, the image embedding (which is given at test time) resides in a small epsilon neighbourhood around the text embedding. If we can learn a decoder that given a text embedding, decodes all vectors in its epsilon neighbourhood to the corresponding text, it would correctly decode the image embedding as well as it resides in its epsilon neighborhood. This is done in by adding a zero-mean Gaussian noise vector with STD epsilon to the text embedding during training. The value of epsilon is selected by taking the mean infinity norm between image embeddings and text embeddings of 15 images from MS-COCO [10]. The authors also provide an ablation study measuring the effect of epsilon on the performance (spoiler: pretty robust to the value of epsilon, as long as it's not too deviated from the "correct" value, like an order of magnitude). Below is a figure providing an overview of the method:
+Let us assume that for each image-text pair, the image embedding (which is given at test time) resides in a small epsilon neighbourhood around the text embedding. If we can learn a decoder that given a text embedding, decodes all vectors in its epsilon neighbourhood to the corresponding text, it would correctly decode the image embedding as well as it resides in its epsilon neighborhood. This is done in by adding a zero-mean Gaussian noise vector with STD epsilon to the text embedding during training. The value of epsilon is selected by taking the mean infinity norm between image embeddings and text embeddings of 15 images from MS-COCO [10]. The authors also provide an ablation study measuring the effect of epsilon on the performance (spoiler: pretty robust to the value of epsilon, as long as it's not too deviated from the "correct" value, like an order of magnitude). Below is a figure providing an overview of the method, which the authors dubbed <b> CapDec </b>:
 
-The method is tested on MS-COCO[10] and Flickr 30k[11] image captioning benchmarks and demonstrates a large improvement over other unsupervised or weakly supervised method.
+| ![CapDec overview](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_method.png) | 
+|:--:| 
+| <b>Overview of CapDec captioning approach:</b> . <b>(a)</b> An illustration of the CLIP joint embedding space. Embedded text is relatively close to its corresponding visual embedding, but with a certain gap. <b>(b)</b> CapDec trains a model that decodes the CLIP embedding of text *T* back to text *T*, after noise injection. The encoders remain frozen. <b>(c)</b> At inference, CapDec simply decodes the embedding of an image using the trained decoder. |
 
-The method of course performance worse than state of the art supervised methods, but as an anecdote I checked, and it actually slightly outperforms "Show, Attend and Tell"[12] which was one of the seminal papers on image captioning.
+The method is tested on MS-COCO[10] and Flickr 30k[11] image captioning benchmarks and demonstrates a large improvement over other unsupervised or weakly supervised method. The method of course performance worse than state of the art supervised methods, but as an anecdote I checked, and it actually slightly outperforms "Show, Attend and Tell"[12] which was one of the seminal papers on image captioning.
 
-The authors also show strong performance on style-guided image captioning, a task where the method requires to generate captions in a certain text style in which labeled image-text data can be limited. Those results are summarised below:
+| ![CapDec results for image captioning](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_table1.png) | 
+|:--:| 
+| <b>Results for image captioning:</b> . (A) We use captions from the COCO and Flickr30k to train CapDec and evaluate on the datasets the captions were taken from. We report results for fully supervised methods that train on captioned images, and on methods that use no training text (ZeroCap), or just training text and no images (CapDec and MAGIC). (B) Similar setting to (A), but in cross-domain setup where training text is taken from one dataset, and evaluation is done on the second dataset.
+
+
+The authors also show strong performance on style-guided image captioning, a task where the method requires to generate captions in a certain text style in which labeled image-text data can be limited. Those results are summarised below along with several examples:
+
+| ![CapDec Style-Guided captioning results on FlickrStyle10K](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_table2.png) | 
+|:--:| 
+| <b>Style-Guided captioning results on FlickrStyle10K:</b> 
+
+
+| ![CapDec Style-Guided captioning results on FlickrStyle10K](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_table2.png) | 
+|:--:| 
+| <b>Example for styled captions of CapDec on FlickrStyle10K</b> 
+
+
 
 DeiT III: Revenge of the ViT
 ======
