@@ -73,12 +73,12 @@ The authors also show strong performance on style-guided image captioning, a tas
 
 | ![CapDec Style-Guided captioning results on FlickrStyle10K](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_table2.png) | 
 |:--:| 
-| <b>Style-Guided captioning results on FlickrStyle10K:</b> 
+| <b>Style-Guided captioning results on FlickrStyle10K:</b> |
 
 
 | ![CapDec Style-Guided captioning results on FlickrStyle10K](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_examples.png) | 
 |:--:| 
-| <b>Example for styled captions of CapDec on FlickrStyle10K</b> 
+| <b>Example for styled captions of CapDec on FlickrStyle10K</b> |
 
 
 
@@ -86,7 +86,7 @@ DeiT III: Revenge of the ViT
 ======
 [Arxiv](https://arxiv.org/abs/2204.07118) [Code](https://github.com/facebookresearch/deit/blob/main/README_revenge.md) Keywords: Vision Transformers, Training recipe 
 
-As hinted by the title, the paper is a follow up work to DeiT (Training data-efficient image transformers & distillation through attention [13]) and co-authored by several of DeiT's authors. The goal of the paper is to provide an improved training recipe for “vanilla” Vision Transformers (ViT) [14] in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer various architectural changes (some motivated by ConvNets) to vanilla ViT (e.g.: PVT[15], Swin[16], CvT[17], Focal Transformer[18], Coatnet[19]), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper by the several of same authors, “ResNet strikes back: An improved training procedure in timm” [20] which offers an improved training receipt for ResNets to achieve a stronger baseline for simple "vanilla" ResNets. Fun fact, there is no DeiT2 ! 
+This paper was published at ECCV 22. As hinted by the title, the paper is a follow up work to DeiT (Training data-efficient image transformers & distillation through attention [13]) and co-authored by several of DeiT's authors. The goal of the paper is to provide an improved training recipe for “vanilla” Vision Transformers (ViT) [14] in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer various architectural changes (some motivated by ConvNets) to vanilla ViT (e.g.: PVT[15], Swin[16], CvT[17], Focal Transformer[18], Coatnet[19]), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper by the several of same authors, “ResNet strikes back: An improved training procedure in timm” [20] which offers an improved training receipt for ResNets to achieve a stronger baseline for simple "vanilla" ResNets. Fun fact, there is no DeiT2 ! 
 
 DeiT III is sort of a response to several lines of work: improved ViT architectures such as Swin [16], improved ConvNet architecture such as ConvNext [21] and self-supervised training methods for ViT such as BEiT [8]. The paper suggest several training strategies that improve ViT performance such that training scales to larger model size without saturating, training time is reduced and the final models reach better or on par performance with Swin[16], ConveNext[21] and other recent architecture as well using BeiT[8] like training when benchmarked on ImageNet 1K, ImageNet 21K and downstream tasks. 
 
@@ -100,7 +100,16 @@ Using the LAMB [24] optimizer.
 
 Below is a table summarizing the training recipe, including all hyperparameters and compares it to previous methods:
 
-The paper presents several experiments demonstrating the effectiveness of the improved training recipe. First, they show a significant improvement gap compared to vanilla ViT and DeiT training recipes, measured on ImageNet 1k and ImageNet 21k:
+
+| ![DeiT3 training recipe](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/deit3_table1.png) | 
+|:--:| 
+|Comparison of Deit3 training recipes including all hyperparameters|
+
+The paper presents several experiments demonstrating the effectiveness of the improved training recipe. First, they show a significant improvement gap compared to vanilla ViT and DeiT training recipes, measured on ImageNet 1k and ImageNet 21k: 
+
+| ![DeiT3 performance compared to previous training recipes](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/deit3_figure1.png) | 
+|:--:| 
+|Comparison of training recipes for (left) vanilla vision transformers trained on ImageNet-1k and evaluated at resolution 224×224, and (right) pre-trained on ImageNet-21k at 224×224 and finetuned on ImageNet-1k at resolution 224×224 or 384×384.|
 
 
 In addition, the paper demonstrates on-par performance with recent architectures, such as ConvNext and Swin, measured on ImageNet 1k and ImageNet 21k, see tables below:
@@ -109,7 +118,7 @@ In addition, the paper demonstrates on-par performance with recent architectures
 The paper also demonstrates improved performance in transfer learning on semantic segmentation, measured on ADE20k [14] dataset:
 
 
-All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of paper and one might argue that it does not hold enough technical novelty to be presented at a top-tier conference such as ECCV. In my opinion, this is hardly the case. While the novelty is limited (and the authors do not argue otherwise in the text), saying “hey, you can get really good results with vanilla ViT just by playing with the training a bit, no need for any bells and whistles” is a strong contribution. 
+All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of paper and one might argue that it does not hold enough technical novelty to be presented at a top-tier conference such as ECCV. In my opinion, this is hardly the case. While the novelty is limited (and the authors do not argue otherwise in the text), saying “hey, you can get really good results with vanilla ViT just by improving the training procedure with no architectural changes (or bells and whisles)” is a strong contribution in my opinion. 
 
 
 Fast Vision Transformers with HiLo Attention
