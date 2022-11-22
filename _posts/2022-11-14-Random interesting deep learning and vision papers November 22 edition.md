@@ -150,6 +150,10 @@ The proposed ViT architecture is based on separating the MultiHead Self Attentio
 Finally, to demonstrate the effectiveness of their approach, the authors compare their methods to other ViT architecture in classification on ImageNet 1K as well as when using their architecture as a backbone (weights are initialised from the ImageNet trained model) in object detection and instance segmentation (measured on COCO) and semantic segmentation (measured on ADE20K). The experiments demonstrate relatively high speed, low number of FLOPS and high accuracy of the proposed method compared to other ViT architectures and efficient attention mechanisms.
 
 
+I Can't Believe There's No Images! Learning Visual Tasks Using only Language Data
+======
+
+
 UniCL: Unified Contrastive Learning in Image-Text-Label Space
 ======
 A very cute paper that tries to unified regular supervised learning and text and image contrastive learning. There isn't a lot of novelty in the paper, but the approach and some of the experiments are very interesting, specifically where it uses regular labels as text and check if that improves results is very interesting. 
@@ -170,6 +174,8 @@ function TargetM: cap_m is the number of captions in the batch (number of text s
 Table 1 - in Cifar100 the vocab size is 105 (and not 100) since there are labels with more than one word (vocab size is number of words). In imagenet 1K its a bit more than 1K for the same reason. In imagenet 22-k ›it's less, I guess since there are repeating words. 
 
 
+  
+  
 References
 ======
 
