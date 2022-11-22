@@ -120,12 +120,22 @@ The paper presents several experiments demonstrating the effectiveness of the im
 
 In addition, the paper demonstrates on-par performance with recent architectures, such as ConvNext and Swin, measured on ImageNet 1k and ImageNet 21k, see tables below:
 
-| ![DeiT3 performance compared to previous methods](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/deit3_table7.png)| 
+| ![DeiT3 classification with ImageNet 1K training](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/deit3_table7.png)| 
 |:--:| 
-|<b> Classification with Imagenet1k training: </b> The authors compare architectures with comparable FLOPs and number of parameters. All models are trained on ImageNet1k only without distillation nor selfsupervised pre-training. We report Top-1 accuracy on the validation set of ImageNet1k and ImageNetV2 with different measure of complexity: throughput, FLOPs, number of parameters and peak memory usage. | 
+|<b> Classification with Imagenet-1k training: </b> The authors compare architectures with comparable FLOPs and number of parameters. All models are trained on ImageNet1k only without distillation nor self-supervised pre-training. We report Top-1 accuracy on the validation set of ImageNet1k and ImageNetV2 with different measure of complexity: throughput, FLOPs, number of parameters and peak memory usage. The throughput and peak memory are measured on a single V100-32GB GPU with batch size fixed to 256 and mixed precision. The reslts ResNet and RegNet from the "Resnet strikes back" paper [20].  Note that different models may have received a different optimization effort, so this is not a complete "apples to apples" comparison. ↑R indicates that the model is fine-tuned at the resolution R and -R indicates that the model is trained at resolution R. | 
 
 
-The paper also demonstrates improved performance in transfer learning on semantic segmentation, measured on ADE20k [14] dataset:
+
+| ![DeiT3 classification with ImageNet 21K training](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/deit3_table8.png)| 
+|:--:| 
+|<b> Classification with Imagenet-21k training: </b> The authors compare architectures with comparable FLOPs and number of parameters. All models are trained on ImageNet1k only without distillation nor selfsupervised pre-training. We report Top-1 accuracy on the validation set of ImageNet1k and ImageNetV2 with different measure of complexity: throughput, FLOPs, number of parameters and peak memory usage. The throughput and peak memory are measured on a single V100-32GB GPU with batch size fixed to 256 and mixed precision. For Swin-L the authors decrease the batch size to 128 in order to avoid out of memory error and re-estimate the memory consumption. ↑R indicates that the model is fine-tuned at the resolution R. | 
+
+
+As written above, the paper is also a response to self-supervised training methods, thus the authors also compared their improved *supervised* training recipe to self-supervised alternatives, specifically MAE [] and BeiT: 
+
+
+
+The paper also demonstrates improved performance in transfer learning on semantic segmentation, measured on ADE20k [] dataset:
 
 
 All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of paper and one might argue that it does not hold enough technical novelty to be presented at a top-tier conference such as ECCV. In my opinion, this is hardly the case. While the novelty is limited (and the authors do not argue otherwise in the text), saying “hey, you can get really good results with vanilla ViT just by improving the training procedure with no architectural changes (or bells and whisles)” is a strong contribution in my opinion. 
