@@ -29,6 +29,12 @@ In my opinion, a very neat paper that combines several ideas from self supervise
 
 Motivated by diffusion transformers[3], the method provides the decoder with information about the noise level. Now, as the noise is modelled a simple zero mean Gaussian with standard deviation $\sigma$, the noise level information can be simply encoded by taking a sinusoidal embedding of $\sigma$, passing it to a light MLP to produce a (learned) embedding for $\sigma$ which is added to the noised patches before feeding those to the decoder. Below is a figure describing this process:
 
+
+| ![CAN denoising](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/denoising2_jpeg.jpg) | 
+|:--:| 
+| <b>Denoising:</b> Both the encoded patches and the noise level $\sigma$ are passed to the decoder by passing $\sigma$ through an MLP, and adding the result to each embedded token. |
+
+
 <img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/denoising2_jpeg.jpg'> <br/>
 <b>Denoising:</b> Both the encoded patches and the noise level $\sigma$ are passed to the decoder by passing $\sigma$ through an MLP, and adding the result to each embedded token.
 
@@ -113,6 +119,10 @@ The paper presents several experiments demonstrating the effectiveness of the im
 
 
 In addition, the paper demonstrates on-par performance with recent architectures, such as ConvNext and Swin, measured on ImageNet 1k and ImageNet 21k, see tables below:
+
+| ![DeiT3 performance compared to previous methods](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/deit3_table7.png)| 
+|:--:| 
+|<b> Classification with Imagenet1k training: </b> The authors compare architectures with comparable FLOPs and number of parameters. All models are trained on ImageNet1k only without distillation nor selfsupervised pre-training. We report Top-1 accuracy on the validation set of ImageNet1k and ImageNetV2 with different measure of complexity: throughput, FLOPs, number of parameters and peak memory usage. | 
 
 
 The paper also demonstrates improved performance in transfer learning on semantic segmentation, measured on ADE20k [14] dataset:
