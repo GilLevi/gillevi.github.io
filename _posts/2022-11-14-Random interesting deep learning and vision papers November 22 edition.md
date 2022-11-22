@@ -153,6 +153,8 @@ Finally, to demonstrate the effectiveness of their approach, the authors compare
 I Can't Believe There's No Images! Learning Visual Tasks Using only Language Data
 ======
 
+CLIP-Dissect: Automatic Description of Neuron Representations in Deep Vision Networks
+====== 
 
 UniCL: Unified Contrastive Learning in Image-Text-Label Space
 ======
