@@ -131,11 +131,11 @@ In addition, the paper demonstrates on-par performance with recent architectures
 |<b> Classification with Imagenet-21k training: </b> The authors compare architectures with comparable FLOPs and number of parameters. All models are trained on ImageNet1k only without distillation nor selfsupervised pre-training. We report Top-1 accuracy on the validation set of ImageNet1k and ImageNetV2 with different measure of complexity: throughput, FLOPs, number of parameters and peak memory usage. The throughput and peak memory are measured on a single V100-32GB GPU with batch size fixed to 256 and mixed precision. For Swin-L the authors decrease the batch size to 128 in order to avoid out of memory error and re-estimate the memory consumption. ↑R indicates that the model is fine-tuned at the resolution R. | 
 
 
-As written above, the paper is also a response to self-supervised training methods, thus the authors also compared their improved *supervised* training recipe to self-supervised alternatives, specifically MAE [] and BeiT: 
+As written above, the paper is also a response to self-supervised training methods, thus the authors also compared their improved *supervised* training recipe to self-supervised alternatives, specifically MAE [25] and BeiT[8]: 
 
 
 
-The paper also demonstrates improved performance in transfer learning on semantic segmentation, measured on ADE20k [] dataset:
+The paper also demonstrates improved performance in transfer learning on semantic segmentation, measured on ADE20k [26] dataset:
 
 
 All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of paper and one might argue that it does not hold enough technical novelty to be presented at a top-tier conference such as ECCV. In my opinion, this is hardly the case. While the novelty is limited (and the authors do not argue otherwise in the text), saying “hey, you can get really good results with vanilla ViT just by improving the training procedure with no architectural changes (or bells and whisles)” is a strong contribution in my opinion. 
@@ -229,6 +229,7 @@ References
   
 [24] You, Yang, et al. "Large batch optimization for deep learning: Training bert in 76 minutes." arXiv preprint arXiv:1904.00962 (2019)
   
-[25]
+[25] He, Kaiming, et al. "Masked autoencoders are scalable vision learners." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2022.
   
+[26] Zhou, Bolei, et al. "Scene parsing through ade20k dataset." Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.
 
