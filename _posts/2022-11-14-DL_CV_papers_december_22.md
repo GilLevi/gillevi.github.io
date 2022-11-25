@@ -1,7 +1,7 @@
 ---
-title: 'Random papers November 2022 edition'
+title: 'Random deep learning and computer vision papers December 2022 edition'
 date: 2022-11-14
-permalink: /posts/random_papers_nov_22
+permalink: /posts/DL_CV_papers_december_22
 tags:
   - arxiv
   - Deep Learning
@@ -56,7 +56,8 @@ Text-Only Training for Image Captioning using Noise-Injected CLIP
 ======
 [Arxiv](https://arxiv.org/abs/2211.00575), [Code](https://github.com/DavidHuji/CapDec), Keywords: CLIP, Image Captioning, NLP
 
-Cool paper, simple and elegant. Training image captioning models commonly requires supervision in the form of image and text pairs. Given a text-only dataset (so no images and certainly no pairs), can we leverage CLIP's [9] strong image and text embedding capabilities to train a text-only image captioning model? turns out we can.
+
+Cool paper, simple and elegant. Will be EMNLP 2022. Training image captioning models commonly requires supervision in the form of image and text pairs. Given a text-only dataset (so no images and certainly no pairs), can we leverage CLIP's [9] strong image and text embedding capabilities to train a text-only image captioning model? turns out we can.
 
 As a reminder, given an image *I* with a corresponding text *T*, CLIP embeds *I* and *T* to a shared space where their embeddings are close. If we had image-text pairs, we could learn a decoder that given the CLIP image embedding as a starting point, reconstruct the text. However, in the above settings we don't have access to images at training time, so the authors propose to use the text embedding as a proxy for the image embedding instead. Specifically, given a dataset of sentences, we extract CLIP text embeddings from each sentence and learn a decoder which reconstruct the text from the text embedding and in inference time simply apply the decoder on the input image embedding instead.
 
@@ -90,9 +91,9 @@ The authors also show strong performance on style-guided image captioning, a tas
 
 DeiT III: Revenge of the ViT
 ======
-[Arxiv](https://arxiv.org/abs/2204.07118) [Code](https://github.com/facebookresearch/deit/blob/main/README_revenge.md) Keywords: Vision Transformers, Training recipe 
+[Arxiv](https://arxiv.org/abs/2204.07118) [Code](https://github.com/facebookresearch/deit/blob/main/README_revenge.md) Keywords: Vision Transformers, Training recipe
 
-This paper was published at ECCV 22. As hinted by the title, the paper is a follow up work to DeiT (Training data-efficient image transformers & distillation through attention [13]) and co-authored by several of DeiT's authors. The goal of the paper is to provide an improved training recipe for “vanilla” Vision Transformers (ViT) [14] in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer various architectural changes (some motivated by ConvNets) to vanilla ViT (e.g.: PVT[15], Swin[16], CvT[17], Focal Transformer[18], Coatnet[19]), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper by the several of same authors, “ResNet strikes back: An improved training procedure in timm” [20] which offers an improved training receipt for ResNets to achieve a stronger baseline for simple "vanilla" ResNets. Fun fact, there is no DeiT2 ! 
+This paper was published at ECCV 2022. As hinted by the title, the paper is a follow up work to DeiT (Training data-efficient image transformers & distillation through attention [13]) and co-authored by several of DeiT's authors. The goal of the paper is to provide an improved training recipe for “vanilla” Vision Transformers (ViT) [14] in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer various architectural changes (some motivated by ConvNets) to vanilla ViT (e.g.: PVT[15], Swin[16], CvT[17], Focal Transformer[18], Coatnet[19]), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper by the several of same authors, “ResNet strikes back: An improved training procedure in timm” [20] which offers an improved training receipt for ResNets to achieve a stronger baseline for simple "vanilla" ResNets. Fun fact, there is no DeiT2 ! 
 
 DeiT III is sort of a response to several lines of work: improved ViT architectures such as Swin [16], improved ConvNet architecture such as ConvNext [21] and self-supervised training methods for ViT such as BEiT [8]. The paper suggest several training strategies that improve ViT performance such that training scales to larger model size without saturating, training time is reduced and the final models reach better or on par performance with Swin[16], ConveNext[21] and other recent architecture as well using BeiT[8] like training when benchmarked on ImageNet 1K, ImageNet 21K and downstream tasks. 
 
@@ -133,16 +134,29 @@ In addition, the paper demonstrates on-par performance with recent architectures
 
 As written above, the paper is also a response to self-supervised training methods, thus the authors also compared their improved *supervised* training recipe to self-supervised alternatives, specifically MAE [25] and BeiT[8]: 
 
-
+| ![DeiT3 training recipe compared to MAE and BeiT](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/deit3_table9.png)| 
+|:--:| 
+|<b> Comparison of self-supervised pre-training with DeiT3 approach. </b> Please note that DeiT3 training is full supervised where as MAE and BeiT are self-supervised pre-training methods, so this is not a direct comparison of fully supervised training recipes, but more of trainining "stratagies". All models are evaluated at resolution 224 × 224. Results are reported on ImageNet Val, real and v2 in order to evaluate overfitting. The superscripts (21k) and (1k) indicate finetuning with labels on ImageNet-1k and Imagenet-21k, respectively. |
 
 The paper also demonstrates improved performance in transfer learning on semantic segmentation, measured on ADE20k [26] dataset:
 
+| ![ADE20k semantic segmentation](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/deit3_table11.png)| 
+|:--:| 
+|<b> ADE20k semantic segmentation. </b> All models are pre-trained on ImageNet-1k except models with † symbol that are pre-trained on ImageNet-21k. The authors report the pre-training resolution used on ImageNet-1k and ImageNet-21k. |
 
 All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of paper and one might argue that it does not hold enough technical novelty to be presented at a top-tier conference such as ECCV. In my opinion, this is hardly the case. While the novelty is limited (and the authors do not argue otherwise in the text), saying “hey, you can get really good results with vanilla ViT just by improving the training procedure with no architectural changes (or bells and whisles)” is a strong contribution in my opinion. 
 
 
 Fast Vision Transformers with HiLo Attention
 ======
+[arxiv],  [code] , keywords:
+
+The paper proposes a novel ViT architecture,
+
+The paper was presented at NeurIPS 2022 as a spotlight paper. 
+
+
+
 The paper addresses efficient Vision Transformers (ViTs) design. The paper argues that while previous works on designing efficient ViTs have considered the theoretical asymptotic computational complexity and computational complexity measured in floating point operations (FLOPS) and memory, those metrics do not capture the actual running time and throughput. Specifically, the paper argues that previous methods might require low number of FLOPs (or lower asymptotic complexity), but in practise their implementation is not hardware friendly thus slow when running on GPU. The paper proposes to benchmark FLOPS, memory consumption and actual running time (on GPU) and further proposes a ViT design that performs favourably in those metrics while providing high accuracy when used as a backbone in various vision tasks, namely: image classification, object detection, instance segmentation and semantic segmentation.
 
 The proposed ViT architecture is based on separating the MultiHead Self Attention (MSA) heads into 2 groups - one group performs local window self attention to capture local fine grained details characterised by high frequencies and the second group performs global self attention on a downscaled (in practice - average pooling in each high res window) version of the feature map to capture global structures characterised by low frequencies. The total number of MSA heads are divided between the groups such that 1-alpha of the heads belong to the first group (local windowed self attention on the full resolution feature map) and alpha of the heads belong to the second group (global attention on the downscaled feature map). Their method is thus dubbed HiLo to denote the different attention branches working on High and Low frequencies. Regarding the value of alpha - the authors provide an experiment to measuring the effect of different choices of alpha and when measuring on the various benchmarks alpha is set to 0.9, so in practice 10% and 90% of the MSA heads belong to the high and low frequencies branch, respectively. Note that in the low frequency brach, keys and values are computed on the downscaled feature map, but the queries still come from the high frequency branch. Also, to further speed up the method, the authors replace explicit positional encoding by adding a layer of 3x3 depth-wise convolution in each Feed Forward block.
