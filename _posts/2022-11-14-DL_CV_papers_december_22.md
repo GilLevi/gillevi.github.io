@@ -151,10 +151,8 @@ Fast Vision Transformers with HiLo Attention
 ======
 [arxiv](https://arxiv.org/abs/2205.13213),  [code](https://github.com/ziplab/LITv2) , keywords: Vision Transformers. 
 
-HILO will be presented as a spotligh paper in Neurips 2022. The paper proposes a novel efficient ViT architecture with througput in mind. First, recall that the vanilla ViT transfomer has high computational complexity due to the 
+HiLo will be presented as a spotligh paper in Neurips 2022. The paper proposes a novel efficient ViT architecture with througput in mind to mitigae ViT's high computationl compexity which stems from the memory and time quadatic complexty of the attention mechanism. First, the paper arguse (and in my opinion rightfully so) that although numerous modified ViT architectures with effieicnty in mind have been proposed, in practice they do not offer high processing speed. This might seem like a strange claim, but in fact previous works usually consider number of FLOPS, memory usage and assimmpotitcl comutational complexity (which are important by themselves), but do not measure througput. Moreover, architecturs with small number FLOPS and momery requirments might actually perform poorly in terms of throghput. For example, the natur
 
-
-they argue (and in my opinion rightfully so) that previous even though numerous architectures which for more efficient ViT 
 
 
 The paper addresses efficient Vision Transformers (ViTs) design. The paper argues that while previous works on designing efficient ViTs have considered the theoretical asymptotic computational complexity and computational complexity measured in floating point operations (FLOPS) and memory, those metrics do not capture the actual running time and throughput. Specifically, the paper argues that previous methods might require low number of FLOPs (or lower asymptotic complexity), but in practise their implementation is not hardware friendly thus slow when running on GPU. The paper proposes to benchmark FLOPS, memory consumption and actual running time (on GPU) and further proposes a ViT design that performs favourably in those metrics while providing high accuracy when used as a backbone in various vision tasks, namely: image classification, object detection, instance segmentation and semantic segmentation.
