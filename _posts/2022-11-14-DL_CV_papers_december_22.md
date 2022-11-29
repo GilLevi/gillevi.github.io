@@ -177,6 +177,10 @@ I Can't Believe There's No Images! Learning Visual Tasks Using only Language Dat
 CLIP-Dissect: Automatic Description of Neuron Representations in Deep Vision Networks
 ====== 
 
+MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis
+====== 
+
+
 UniCL: Unified Contrastive Learning in Image-Text-Label Space
 ======
 A very cute paper that tries to unified regular supervised learning and text and image contrastive learning. There isn't a lot of novelty in the paper, but the approach and some of the experiments are very interesting, specifically where it uses regular labels as text and check if that improves results is very interesting. 
