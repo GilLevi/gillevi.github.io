@@ -17,7 +17,7 @@ As the title suggests, in this blog post I'll survey random interesting papers I
 
 CAN - A simple, efficient and scalable contrastive masked autoencoder for learning visual representations 
 ======
-[Arxiv](https://arxiv.org/abs/2210.16870), Keywords: semi-supervised learning, contrastive learning
+[Arxiv](https://arxiv.org/abs/2210.16870), Keywords: semi-supervised learning, contrastive learning, Venue: under review in ICLR 
 
 In my opinion, a very neat paper that combines several ideas from self supervised learning (SSL), namely contrastive loss (most notably, SimCLR [1]) reconstruction of masked patches (most notably "Masked Auto-encoders Are Scalable Vision Learners" [2]) and denoising autoencoder. Their pipeline is summarized in the figure below and works as follows: given an input image, generate 2 different views by applying augmentations, mask 50% of the patches, add Gaussian noise to the unmasked patches and feed the resulting noisy masked image to a ViT encoder. Now, we take the encoding of the unmasked patches, perform mean pooling, pass to a light MLP and apply contrastive loss (hence, the "contrastive" in the title). The encoded "patch image" is then passed to a ViT decoder to perform reconstruction of the masked patches and denoising of the unmasked noisy patches, which gives us the both reconstruction loss and the denoising loss. 
 
@@ -52,9 +52,16 @@ The results demonstrate improved or on-par performance with recent SSL methods a
 The results also show that the method scales well to JFT-300, hence the "scalable" part of the title. The method is also faster than methods which use the full image views, as it only "uses" 50% of the tokens in both views of the image (as opposed to SimCLR for example which augments the entire image) and does not use multiple views per image (such as DINO [6] or SwAV [7] which uses multi-crop), hence the "efficient" in the title. The paper is overall simple and elegant, does not use momentum encoder, hence the "simple" in the title. I should point out that it does not beat all other methods on all datasets, but the overall trade-off between results and simplicity is very good in my opinion. This is the main selling point of the paper: combining different semi-supervised techniques in a way which complement each other to obtain a unifed *simple* and *efficient* system. Keep in mind that the method can also be extended by adding a multiple views, momentum encoder or a tokenizer and a masking objective (as in BeiT[8]) to further improve the results, of course with the cost of complexity and slower running times. 
 
 
+MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis
+====== 
+
+
+
+
+
 Text-Only Training for Image Captioning using Noise-Injected CLIP
 ======
-[Arxiv](https://arxiv.org/abs/2211.00575), [Code](https://github.com/DavidHuji/CapDec), Keywords: CLIP, Image Captioning, NLP
+[Arxiv](https://arxiv.org/abs/2211.00575), [Code](https://github.com/DavidHuji/CapDec), Keywords: CLIP, Image Captioning, NLP, Venue: EMNLP 2022
 
 
 Cool paper, simple and elegant. Will be EMNLP 2022. Training image captioning models commonly requires supervision in the form of image and text pairs. Given a text-only dataset (so no images and certainly no pairs), can we leverage CLIP's [9] strong image and text embedding capabilities to train a text-only image captioning model? turns out we can.
@@ -87,11 +94,14 @@ The authors also show strong performance on style-guided image captioning, a tas
 |:--:| 
 | <b>Example for styled captions of CapDec on FlickrStyle10K</b> |
 
+I Can't Believe There's No Images! Learning Visual Tasks Using only Language Data
+======
+
 
 
 DeiT III: Revenge of the ViT
 ======
-[Arxiv](https://arxiv.org/abs/2204.07118) [Code](https://github.com/facebookresearch/deit/blob/main/README_revenge.md) Keywords: Vision Transformers, Training recipe
+[Arxiv](https://arxiv.org/abs/2204.07118) [Code](https://github.com/facebookresearch/deit/blob/main/README_revenge.md) Keywords: Vision Transformers, Training recipe, Venue: ECCV 2022
 
 This paper was published at ECCV 2022. As hinted by the title, the paper is a follow up work to DeiT (Training data-efficient image transformers & distillation through attention [13]) and co-authored by several of DeiT's authors. The goal of the paper is to provide an improved training recipe for “vanilla” Vision Transformers (ViT) [14] in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer various architectural changes (some motivated by ConvNets) to vanilla ViT (e.g.: PVT[15], Swin[16], CvT[17], Focal Transformer[18], Coatnet[19]), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper by the several of same authors, “ResNet strikes back: An improved training procedure in timm” [20] which offers an improved training receipt for ResNets to achieve a stronger baseline for simple "vanilla" ResNets. Fun fact, there is no DeiT2 ! 
 
@@ -149,15 +159,15 @@ All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of 
 
 Fast Vision Transformers with HiLo Attention
 ======
-[arxiv](https://arxiv.org/abs/2205.13213),  [code](https://github.com/ziplab/LITv2) , keywords: Vision Transformers. 
+[arxiv](https://arxiv.org/abs/2205.13213),  [code](https://github.com/ziplab/LITv2) , keywords: Vision Transformers, Venue: Neurips 2022 as spotlight paper
 
 HiLo will be presented as a spotlight paper in Neurips 2022. The paper proposes a novel efficient ViT architecture with throughput in mind to mitigate ViT's high computational complexity which stems from the quadratic memory and time complexity of the attention mechanism. 
 
 First, the paper argue (and in my opinion rightfully so) that although many improved and more efficient ViT architectures have been proposed, in practice they do not offer high processing speed. This claim might seem contradictory, but in fact previous works usually consider metrics such as number of FLOPS, memory usage and asymptotic computational complexity (which are important by themselves), but those metrics do no capture the actual running time or throughput nor those works directly measure those. Moreover, specific architectures with small number of FLOPS and memory requirements or lower asymptotic complexity as might actually run slowly when implemented on GPU due to specific operations which not hardware-friendly or cannot be parallelized. To this end, the paper directly benchmarks FLOPS and memory consumption as well as throughput (on GPU) and proposes a ViT architecture that performs favourably in those metrics while achieving high accuracy when used as backbone in classification and various down-stream vision tasks. 
 
-The proposed ViT architecture is based on changing the attention mechanism by seperating the self-attention heads into two groups. One group (1-$\alpha$) of the heads performs self-attention in local windows on the original high resolution feature map, thus capturing fine details in small local windowns (characterised by high frequencies) while the second group perfoms regular global self attention but on a downscaled (max-pooled) version of the feature map to captured global structures (characterised by low frequencies). The features maps from the two groups are concatenated and passed to the following HiLo attention block. 
+The proposed ViT architecture is based on changing the attention mechanism by seperating the self-attention heads into two groups. One group (1-$\alpha$) of the heads performs self-attention in local windows on the original high resolution feature map (denoted <i>Hi-Fi attention</i>), thus capturing fine details in small local windowns (characterised by high frequencies) while the second group perfoms regular global self attention but on a downscaled (max-pooled) version of the feature map (denoted <i>Lo-Fi attention</i>) to captured global structures (characterised by low frequencies). The features maps from the two groups are concatenated and passed to the following HiLo attention block. 
 
-The authors provide an ablation study measuring the effect of different choices of $\alpha$ (figure 4). As $\alpha$ decreases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. 
+The authors provide an ablation study measuring the effect of different choices of $\alpha$ (figure 4). As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning replacing the method with regular attention on downscaled feature maps performs competativley on ImageNet1K
 
 
 
@@ -171,14 +181,10 @@ The proposed ViT architecture is based on separating the MultiHead Self Attentio
 Finally, to demonstrate the effectiveness of their approach, the authors compare their methods to other ViT architecture in classification on ImageNet 1K as well as when using their architecture as a backbone (weights are initialised from the ImageNet trained model) in object detection and instance segmentation (measured on COCO) and semantic segmentation (measured on ADE20K). The experiments demonstrate relatively high speed, low number of FLOPS and high accuracy of the proposed method compared to other ViT architectures and efficient attention mechanisms.
 
 
-I Can't Believe There's No Images! Learning Visual Tasks Using only Language Data
-======
 
 CLIP-Dissect: Automatic Description of Neuron Representations in Deep Vision Networks
 ====== 
 
-MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis
-====== 
 
 
 UniCL: Unified Contrastive Learning in Image-Text-Label Space
