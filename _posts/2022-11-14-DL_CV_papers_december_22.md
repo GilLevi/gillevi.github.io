@@ -17,7 +17,7 @@ As the title suggests, in this blog post I'll survey random interesting papers I
 
 CAN - A simple, efficient and scalable contrastive masked autoencoder for learning visual representations 
 ======
-[Arxiv](https://arxiv.org/abs/2210.16870), Keywords: semi-supervised learning, contrastive learning, Venue: under review in ICLR 
+[Arxiv](https://arxiv.org/abs/2210.16870), Keywords: semi-supervised learning, contrastive learning, Venue: under review
 
 In my opinion, a very neat paper that combines several ideas from self supervised learning (SSL), namely contrastive loss (most notably, SimCLR [1]) reconstruction of masked patches (most notably "Masked Auto-encoders Are Scalable Vision Learners" [2]) and denoising autoencoder. Their pipeline is summarized in the figure below and works as follows: given an input image, generate 2 different views by applying augmentations, mask 50% of the patches, add Gaussian noise to the unmasked patches and feed the resulting noisy masked image to a ViT encoder. Now, we take the encoding of the unmasked patches, perform mean pooling, pass to a light MLP and apply contrastive loss (hence, the "contrastive" in the title). The encoded "patch image" is then passed to a ViT decoder to perform reconstruction of the masked patches and denoising of the unmasked noisy patches, which gives us the both reconstruction loss and the denoising loss. 
 
@@ -159,7 +159,7 @@ All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of 
 
 Fast Vision Transformers with HiLo Attention
 ======
-[arxiv](https://arxiv.org/abs/2205.13213),  [code](https://github.com/ziplab/LITv2) , keywords: Vision Transformers, Venue: Neurips 2022 as spotlight paper
+[arxiv](https://arxiv.org/abs/2205.13213),  [code](https://github.com/ziplab/LITv2) , keywords: Vision Transformers, Venue: Neurips 2022 spotlight paper
 
 HiLo will be presented as a spotlight paper in Neurips 2022. The paper proposes a novel efficient ViT architecture with throughput in mind to mitigate ViT's high computational complexity which stems from the quadratic memory and time complexity of the attention mechanism. 
 
@@ -167,7 +167,7 @@ First, the paper argue (and in my opinion rightfully so) that although many impr
 
 The proposed ViT architecture is based on changing the attention mechanism by seperating the self-attention heads into two groups. One group (1-$\alpha$) of the heads performs self-attention in local windows on the original high resolution feature map (denoted <i>Hi-Fi attention</i>), thus capturing fine details in small local windowns (characterised by high frequencies) while the second group perfoms regular global self attention but on a downscaled (max-pooled) version of the feature map (denoted <i>Lo-Fi attention</i>) to captured global structures (characterised by low frequencies). The features maps from the two groups are concatenated and passed to the following HiLo attention block. 
 
-The authors provide an ablation study measuring the effect of different choices of $\alpha$ (figure 4). As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning replacing the method with regular attention on downscaled feature maps performs competativley on ImageNet1K
+The authors provide an ablation study measuring the effect of different choices of $\alpha$ (figure 4). As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning essentially removing the Hi-Fi attention and replacing the method with regular attention on downscaled feature maps performs competitively on ImageNet1K, but the authors report it provides worse results on dense prediction tasks such as semantic segmentaion (however, the authors do not provide an ablation using semgenatic segmenation, as far as I can tell).
 
 
 
