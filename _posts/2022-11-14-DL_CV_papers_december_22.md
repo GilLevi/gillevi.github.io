@@ -51,7 +51,8 @@ The results also show that the method scales well to JFT-300, hence the "scalabl
 MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis
 ====== 
 
-
+shifted diffusion for text-to-image generation
+======
 
 
 
@@ -92,6 +93,33 @@ The authors also show strong performance on style-guided image captioning, a tas
 
 I Can't Believe There's No Images! Learning Visual Tasks Using only Language Data
 ======
+
+
+
+Fast Vision Transformers with HiLo Attention
+======
+[arxiv](https://arxiv.org/abs/2205.13213),  [code](https://github.com/ziplab/LITv2) , keywords: Vision Transformers, Venue: Neurips 2022 spotlight paper
+
+HiLo will be presented as a spotlight paper in Neurips 2022. The paper proposes a novel efficient ViT architecture with throughput in mind to mitigate ViT's high computational complexity which stems from the quadratic memory and time complexity of the attention mechanism. 
+
+First, the paper argue (and in my opinion rightfully so) that although many improved and more efficient ViT architectures have been proposed, in practice they do not offer high processing speed. This claim might seem contradictory, but in fact previous works usually consider metrics such as number of FLOPS, memory usage and asymptotic computational complexity (which are important by themselves), but those metrics do no capture the actual running time or throughput nor those works directly measure those. Moreover, specific architectures with small number of FLOPS and memory requirements or lower asymptotic complexity as might actually run slowly when implemented on GPU due to specific operations which not hardware-friendly or cannot be parallelized. To this end, the paper directly benchmarks FLOPS and memory consumption as well as throughput (on GPU) and proposes a ViT architecture that performs favourably in those metrics while achieving high accuracy when used as backbone in classification and various down-stream vision tasks. 
+
+The proposed ViT architecture is based on changing the attention mechanism by seperating the self-attention heads into two groups. One group (1-$\alpha$) of the heads performs self-attention in local windows on the original high resolution feature map (denoted <i>Hi-Fi attention</i>), thus capturing fine details in small local windowns (characterised by high frequencies) while the second group perfoms regular global self attention but on a downscaled (max-pooled) version of the feature map (denoted <i>Lo-Fi attention</i>) to captured global structures (characterised by low frequencies). The features maps from the two groups are concatenated and passed to the following HiLo attention block. 
+
+The authors provide an ablation study measuring the effect of different choices of $\alpha$. As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning essentially removing the Hi-Fi attention and replacing the method with regular attention on downscaled feature maps performs competitively on ImageNet1K, but the authors report it provides worse results on dense prediction tasks such as semantic segmentaion (however, the authors do not provide an ablation using semgenatic segmenation, as far as I can tell):
+
+TODO: graph of alpha from paper
+
+
+
+STOP HERE
+
+
+The paper addresses efficient Vision Transformers (ViTs) design. The paper argues that while previous works on designing efficient ViTs have considered the theoretical asymptotic computational complexity and computational complexity measured in floating point operations (FLOPS) and memory, those metrics do not capture the actual running time and throughput. Specifically, the paper argues that previous methods might require low number of FLOPs (or lower asymptotic complexity), but in practise their implementation is not hardware friendly thus slow when running on GPU. The paper proposes to benchmark FLOPS, memory consumption and actual running time (on GPU) and further proposes a ViT design that performs favourably in those metrics while providing high accuracy when used as a backbone in various vision tasks, namely: image classification, object detection, instance segmentation and semantic segmentation.
+
+The proposed ViT architecture is based on separating the MultiHead Self Attention (MSA) heads into 2 groups - one group performs local window self attention to capture local fine grained details characterised by high frequencies and the second group performs global self attention on a downscaled (in practice - average pooling in each high res window) version of the feature map to capture global structures characterised by low frequencies. The total number of MSA heads are divided between the groups such that 1-alpha of the heads belong to the first group (local windowed self attention on the full resolution feature map) and alpha of the heads belong to the second group (global attention on the downscaled feature map). Their method is thus dubbed HiLo to denote the different attention branches working on High and Low frequencies. Regarding the value of alpha - the authors provide an experiment to measuring the effect of different choices of alpha and when measuring on the various benchmarks alpha is set to 0.9, so in practice 10% and 90% of the MSA heads belong to the high and low frequencies branch, respectively. Note that in the low frequency brach, keys and values are computed on the downscaled feature map, but the queries still come from the high frequency branch. Also, to further speed up the method, the authors replace explicit positional encoding by adding a layer of 3x3 depth-wise convolution in each Feed Forward block.
+
+Finally, to demonstrate the effectiveness of their approach, the authors compare their methods to other ViT architecture in classification on ImageNet 1K as well as when using their architecture as a backbone (weights are initialised from the ImageNet trained model) in object detection and instance segmentation (measured on COCO) and semantic segmentation (measured on ADE20K). The experiments demonstrate relatively high speed, low number of FLOPS and high accuracy of the proposed method compared to other ViT architectures and efficient attention mechanisms.
 
 
 
@@ -151,32 +179,6 @@ The paper also demonstrates improved performance in transfer learning on semanti
 |<b> ADE20k semantic segmentation. </b> All models are pre-trained on ImageNet-1k except models with † symbol that are pre-trained on ImageNet-21k. The authors report the pre-training resolution used on ImageNet-1k and ImageNet-21k. |
 
 All in all, at first sight DeiT 3 might seem like a “bag of tricks” sort of paper and one might argue that it does not hold enough technical novelty to be presented at a top-tier conference such as ECCV. In my opinion, this is hardly the case. While the novelty is limited (and the authors do not argue otherwise in the text), saying “hey, you can get really good results with vanilla ViT just by improving the training procedure with no architectural changes (or bells and whisles)” is a strong contribution in my opinion. 
-
-
-Fast Vision Transformers with HiLo Attention
-======
-[arxiv](https://arxiv.org/abs/2205.13213),  [code](https://github.com/ziplab/LITv2) , keywords: Vision Transformers, Venue: Neurips 2022 spotlight paper
-
-HiLo will be presented as a spotlight paper in Neurips 2022. The paper proposes a novel efficient ViT architecture with throughput in mind to mitigate ViT's high computational complexity which stems from the quadratic memory and time complexity of the attention mechanism. 
-
-First, the paper argue (and in my opinion rightfully so) that although many improved and more efficient ViT architectures have been proposed, in practice they do not offer high processing speed. This claim might seem contradictory, but in fact previous works usually consider metrics such as number of FLOPS, memory usage and asymptotic computational complexity (which are important by themselves), but those metrics do no capture the actual running time or throughput nor those works directly measure those. Moreover, specific architectures with small number of FLOPS and memory requirements or lower asymptotic complexity as might actually run slowly when implemented on GPU due to specific operations which not hardware-friendly or cannot be parallelized. To this end, the paper directly benchmarks FLOPS and memory consumption as well as throughput (on GPU) and proposes a ViT architecture that performs favourably in those metrics while achieving high accuracy when used as backbone in classification and various down-stream vision tasks. 
-
-The proposed ViT architecture is based on changing the attention mechanism by seperating the self-attention heads into two groups. One group (1-$\alpha$) of the heads performs self-attention in local windows on the original high resolution feature map (denoted <i>Hi-Fi attention</i>), thus capturing fine details in small local windowns (characterised by high frequencies) while the second group perfoms regular global self attention but on a downscaled (max-pooled) version of the feature map (denoted <i>Lo-Fi attention</i>) to captured global structures (characterised by low frequencies). The features maps from the two groups are concatenated and passed to the following HiLo attention block. 
-
-The authors provide an ablation study measuring the effect of different choices of $\alpha$. As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning essentially removing the Hi-Fi attention and replacing the method with regular attention on downscaled feature maps performs competitively on ImageNet1K, but the authors report it provides worse results on dense prediction tasks such as semantic segmentaion (however, the authors do not provide an ablation using semgenatic segmenation, as far as I can tell):
-
-TODO: graph of alpha from paper
-
-
-
-STOP HERE
-
-
-The paper addresses efficient Vision Transformers (ViTs) design. The paper argues that while previous works on designing efficient ViTs have considered the theoretical asymptotic computational complexity and computational complexity measured in floating point operations (FLOPS) and memory, those metrics do not capture the actual running time and throughput. Specifically, the paper argues that previous methods might require low number of FLOPs (or lower asymptotic complexity), but in practise their implementation is not hardware friendly thus slow when running on GPU. The paper proposes to benchmark FLOPS, memory consumption and actual running time (on GPU) and further proposes a ViT design that performs favourably in those metrics while providing high accuracy when used as a backbone in various vision tasks, namely: image classification, object detection, instance segmentation and semantic segmentation.
-
-The proposed ViT architecture is based on separating the MultiHead Self Attention (MSA) heads into 2 groups - one group performs local window self attention to capture local fine grained details characterised by high frequencies and the second group performs global self attention on a downscaled (in practice - average pooling in each high res window) version of the feature map to capture global structures characterised by low frequencies. The total number of MSA heads are divided between the groups such that 1-alpha of the heads belong to the first group (local windowed self attention on the full resolution feature map) and alpha of the heads belong to the second group (global attention on the downscaled feature map). Their method is thus dubbed HiLo to denote the different attention branches working on High and Low frequencies. Regarding the value of alpha - the authors provide an experiment to measuring the effect of different choices of alpha and when measuring on the various benchmarks alpha is set to 0.9, so in practice 10% and 90% of the MSA heads belong to the high and low frequencies branch, respectively. Note that in the low frequency brach, keys and values are computed on the downscaled feature map, but the queries still come from the high frequency branch. Also, to further speed up the method, the authors replace explicit positional encoding by adding a layer of 3x3 depth-wise convolution in each Feed Forward block.
-
-Finally, to demonstrate the effectiveness of their approach, the authors compare their methods to other ViT architecture in classification on ImageNet 1K as well as when using their architecture as a backbone (weights are initialised from the ImageNet trained model) in object detection and instance segmentation (measured on COCO) and semantic segmentation (measured on ADE20K). The experiments demonstrate relatively high speed, low number of FLOPS and high accuracy of the proposed method compared to other ViT architectures and efficient attention mechanisms.
 
 
 
