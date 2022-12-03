@@ -30,13 +30,9 @@ In my opinion, a very neat paper that combines several ideas from self supervise
 Motivated by diffusion transformers[3], the method provides the decoder with information about the noise level. Now, as the noise is modelled a simple zero mean Gaussian with standard deviation $\sigma$, the noise level information can be simply encoded by taking a sinusoidal embedding of $\sigma$, passing it to a light MLP to produce a (learned) embedding for $\sigma$ which is added to the noised patches before feeding those to the decoder. Below is a figure describing this process:
 
 
-| ![CAN denoising](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/denoising2_jpeg.jpg) | 
+| ![CAN denoising](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/denoising3.png) | 
 |:--:| 
 | <b>Denoising:</b> Both the encoded patches and the noise level $\sigma$ are passed to the decoder by passing $\sigma$ through an MLP, and adding the result to each embedded token. |
-
-
-<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/denoising2_jpeg.jpg'> <br/>
-<b>Denoising:</b> Both the encoded patches and the noise level $\sigma$ are passed to the decoder by passing $\sigma$ through an MLP, and adding the result to each embedded token.
 
 The authors provide an ablation of this component which demonstrate that simply adding noise as an augmentation also improves the performance of the system even without the denoising loss. However, adding the denoising loss without incorporating the noise level information provides worse results while incorporating it outperforms noise augmentation, demonstrating the necessity of this component (see table 1 and ablation discussion in section 3.4).
 
@@ -167,7 +163,9 @@ First, the paper argue (and in my opinion rightfully so) that although many impr
 
 The proposed ViT architecture is based on changing the attention mechanism by seperating the self-attention heads into two groups. One group (1-$\alpha$) of the heads performs self-attention in local windows on the original high resolution feature map (denoted <i>Hi-Fi attention</i>), thus capturing fine details in small local windowns (characterised by high frequencies) while the second group perfoms regular global self attention but on a downscaled (max-pooled) version of the feature map (denoted <i>Lo-Fi attention</i>) to captured global structures (characterised by low frequencies). The features maps from the two groups are concatenated and passed to the following HiLo attention block. 
 
-The authors provide an ablation study measuring the effect of different choices of $\alpha$ (figure 4). As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning essentially removing the Hi-Fi attention and replacing the method with regular attention on downscaled feature maps performs competitively on ImageNet1K, but the authors report it provides worse results on dense prediction tasks such as semantic segmentaion (however, the authors do not provide an ablation using semgenatic segmenation, as far as I can tell).
+The authors provide an ablation study measuring the effect of different choices of $\alpha$. As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning essentially removing the Hi-Fi attention and replacing the method with regular attention on downscaled feature maps performs competitively on ImageNet1K, but the authors report it provides worse results on dense prediction tasks such as semantic segmentaion (however, the authors do not provide an ablation using semgenatic segmenation, as far as I can tell):
+
+TODO: graph of alpha from paper
 
 
 
