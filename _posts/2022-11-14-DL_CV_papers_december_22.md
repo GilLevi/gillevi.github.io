@@ -10,7 +10,9 @@ tags:
   - Papers
 ---
 
-Random (interesting) papers: Contrastive masked autoencoder, training captioning models without images, improved training scheme for ViT, new ViT architecture, unified Vision and Language learning, and more  
+Random recent interesting DL/CV papers: 2 papers on SSL
+
+Contrastive masked autoencoder, training captioning models without images, improved training scheme for ViT, new ViT architecture, unified Vision and Language learning, and more  
 
 
 As the title suggests, in this blog post I'll survey random interesting papers I came across. There's no real common theme connecting the papers, aside from me finding them cool and being published this recently 🤷‍♂️. I do try to give a relatively detailed overview so the reader can get the gist of work, but I definitely may skip some details and possibly make errors, so feel free to comment, especially if you're one of the authors. 
@@ -51,9 +53,6 @@ The results also show that the method scales well to JFT-300, hence the "scalabl
 MAGE: MAsked Generative Encoder to Unify Representation Learning and Image Synthesis
 ====== 
 
-shifted diffusion for text-to-image generation
-======
-
 
 
 Text-Only Training for Image Captioning using Noise-Injected CLIP
@@ -61,7 +60,7 @@ Text-Only Training for Image Captioning using Noise-Injected CLIP
 [Arxiv](https://arxiv.org/abs/2211.00575), [Code](https://github.com/DavidHuji/CapDec), Keywords: CLIP, Image Captioning, NLP, Venue: EMNLP 2022
 
 
-Cool paper, simple and elegant. Will be EMNLP 2022. Training image captioning models commonly requires supervision in the form of image and text pairs. Given a text-only dataset (so no images and certainly no pairs), can we leverage CLIP's [9] strong image and text embedding capabilities to train a text-only image captioning model? turns out we can.
+Cool paper, simple and elegant. Training image captioning models commonly requires supervision in the form of image and text pairs. Given a text-only dataset (so no images and certainly no pairs), can we leverage CLIP's [9] strong image and text embedding capabilities to train a text-only image captioning model? turns out we can.
 
 As a reminder, given an image *I* with a corresponding text *T*, CLIP embeds *I* and *T* to a shared space where their embeddings are close. If we had image-text pairs, we could learn a decoder that given the CLIP image embedding as a starting point, reconstruct the text. However, in the above settings we don't have access to images at training time, so the authors propose to use the text embedding as a proxy for the image embedding instead. Specifically, given a dataset of sentences, we extract CLIP text embeddings from each sentence and learn a decoder which reconstruct the text from the text embedding and in inference time simply apply the decoder on the input image embedding instead.
 
@@ -100,7 +99,7 @@ Fast Vision Transformers with HiLo Attention
 ======
 [arxiv](https://arxiv.org/abs/2205.13213),  [code](https://github.com/ziplab/LITv2) , keywords: Vision Transformers, Venue: Neurips 2022 spotlight paper
 
-HiLo will be presented as a spotlight paper in Neurips 2022. The paper proposes a novel efficient ViT architecture with throughput in mind to mitigate ViT's high computational complexity which stems from the quadratic memory and time complexity of the attention mechanism. 
+The paper proposes a novel efficient ViT architecture with throughput in mind to mitigate ViT's high computational complexity which stems from the quadratic memory and time complexity of the attention mechanism. 
 
 First, the paper argue (and in my opinion rightfully so) that although many improved and more efficient ViT architectures have been proposed, in practice they do not offer high processing speed. This claim might seem contradictory, but in fact previous works usually consider metrics such as number of FLOPS, memory usage and asymptotic computational complexity (which are important by themselves), but those metrics do no capture the actual running time or throughput nor those works directly measure those. Moreover, specific architectures with small number of FLOPS and memory requirements or lower asymptotic complexity as might actually run slowly when implemented on GPU due to specific operations which not hardware-friendly or cannot be parallelized. To this end, the paper directly benchmarks FLOPS and memory consumption as well as throughput (on GPU) and proposes a ViT architecture that performs favourably in those metrics while achieving high accuracy when used as backbone in classification and various down-stream vision tasks. 
 
@@ -127,7 +126,7 @@ DeiT III: Revenge of the ViT
 ======
 [Arxiv](https://arxiv.org/abs/2204.07118) [Code](https://github.com/facebookresearch/deit/blob/main/README_revenge.md) Keywords: Vision Transformers, Training recipe, Venue: ECCV 2022
 
-This paper was published at ECCV 2022. As hinted by the title, the paper is a follow up work to DeiT (Training data-efficient image transformers & distillation through attention [13]) and co-authored by several of DeiT's authors. The goal of the paper is to provide an improved training recipe for “vanilla” Vision Transformers (ViT) [14] in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer various architectural changes (some motivated by ConvNets) to vanilla ViT (e.g.: PVT[15], Swin[16], CvT[17], Focal Transformer[18], Coatnet[19]), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper by the several of same authors, “ResNet strikes back: An improved training procedure in timm” [20] which offers an improved training receipt for ResNets to achieve a stronger baseline for simple "vanilla" ResNets. Fun fact, there is no DeiT2 ! 
+As hinted by the title, the paper is a follow up work to DeiT (Training data-efficient image transformers & distillation through attention [13]) and co-authored by several of DeiT's authors. The goal of the paper is to provide an improved training recipe for “vanilla” Vision Transformers (ViT) [14] in order to achieve a stronger baseline for vanilla ViT, without any architectural changes. I find this extremely interesting as there is a large body of works which offer various architectural changes (some motivated by ConvNets) to vanilla ViT (e.g.: PVT[15], Swin[16], CvT[17], Focal Transformer[18], Coatnet[19]), and here the authors steer away from making any changes to the architecture and focus instead only on the training recipe. This work is also similar to a previous paper by the several of same authors, “ResNet strikes back: An improved training procedure in timm” [20] which offers an improved training receipt for ResNets to achieve a stronger baseline for simple "vanilla" ResNets. Fun fact, there is no DeiT2 ! 
 
 DeiT III is sort of a response to several lines of work: improved ViT architectures such as Swin [16], improved ConvNet architecture such as ConvNext [21] and self-supervised training methods for ViT such as BEiT [8]. The paper suggest several training strategies that improve ViT performance such that training scales to larger model size without saturating, training time is reduced and the final models reach better or on par performance with Swin[16], ConveNext[21] and other recent architecture as well using BeiT[8] like training when benchmarked on ImageNet 1K, ImageNet 21K and downstream tasks. 
 
