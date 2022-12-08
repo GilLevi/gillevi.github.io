@@ -10,9 +10,8 @@ tags:
   - Papers
 ---
 
-Random recent interesting DL/CV papers: 2 papers on SSL
+Random recent interesting DL/CV papers: two papers on self supervised learning for vision, training captioning models without images, training various vision and language models with inage, HiLo attention, Revenge of the DeiT and a leverging CLIP for model explainability.  
 
-Contrastive masked autoencoder, training captioning models without images, improved training scheme for ViT, new ViT architecture, unified Vision and Language learning, and more  
 
 
 As the title suggests, in this blog post I'll survey random interesting papers I came across. There's no real common theme connecting the papers, aside from me finding them cool and being published this recently 🤷‍♂️. I do try to give a relatively detailed overview so the reader can get the gist of work, but I definitely may skip some details and possibly make errors, so feel free to comment, especially if you're one of the authors. 
@@ -105,10 +104,11 @@ First, the paper argue (and in my opinion rightfully so) that although many impr
 
 The proposed ViT architecture is based on changing the attention mechanism by seperating the self-attention heads into two groups. One group (1-$\alpha$) of the heads performs self-attention in local windows on the original high resolution feature map (denoted <i>Hi-Fi attention</i>), thus capturing fine details in small local windowns (characterised by high frequencies) while the second group perfoms regular global self attention but on a downscaled (max-pooled) version of the feature map (denoted <i>Lo-Fi attention</i>) to captured global structures (characterised by low frequencies). The features maps from the two groups are concatenated and passed to the following HiLo attention block. 
 
-The authors provide an ablation study measuring the effect of different choices of $\alpha$. As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning essentially removing the Hi-Fi attention and replacing the method with regular attention on downscaled feature maps performs competitively on ImageNet1K, but the authors report it provides worse results on dense prediction tasks such as semantic segmentaion (however, the authors do not provide an ablation using semgenatic segmenation, as far as I can tell):
+The authors provide an ablation study measuring the effect of different choices of $\alpha$ (see figure below). As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning essentially removing the Hi-Fi attention and replacing the method with regular attention on downscaled feature maps performs competitively on ImageNet1K, but the authors report it provides worse results on dense prediction tasks such as semantic segmentaion (however, the authors do not provide an ablation using semgenatic segmenation, as far as I can tell).
 
-TODO: graph of alpha from paper
+TODO: graph of alpha from papera
 
+The authors 
 
 
 STOP HERE
