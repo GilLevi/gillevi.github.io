@@ -128,7 +128,10 @@ The authors compare the proposed architecture with recent ViT and Convnet archit
 | <b> Object detection and instance segmentation performance:</b> performance is measured on the COCO val2017 split using the RetinaNet and Mask R-CNN framework. $AP^b$ and $AP^m$ denote the bounding box AP and mask AP, respectively. * indicates the model adopts a local window size of 4 in HiLo.|
 
 
-TODO: table 2, table 3
+| ![HiLo attention - Semantic segmenation results](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Hilo_table3.png) | 
+|:--:| 
+| Semantic segmentation performance of different backbones on the ADE20K validation set. FLOPs is evaluated based on the image resolution of 512 × 512.|
+
 
 The authors further compare their proposed architecture against a wider array of more recent and stronger ViT architectures implemented across various different GPU models. The HiLo transformer achieves higher throughput (i.e.: faster running times) than all other methods on across all GPU models while still acheiving almost the highest top-1 accuracy on ImageNet-1K.
 
