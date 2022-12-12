@@ -1,7 +1,7 @@
 ---
-title: 'Random deep learning and computer vision papers December 2022 edition'
+title: 'Random DL/CV papers'
 date: 2022-11-14
-permalink: /posts/gilgil
+permalink: /posts/DL_CV_papers_december_22
 tags:
   - arxiv
   - Deep Learning
@@ -120,6 +120,12 @@ The authors compare the proposed architecture with recent ViT and Convnet archit
 | ![HiLo attention - results on Imagenet 1K](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Hilo_table1.png) | 
 |:--:| 
 | <b> Image classification results on ImageNet-1K:</b> By default, the FLOPs, throughput and memory consumption are measured based on the resolution 224 × 224 with a batch size of 64. Throughput is tested on one NVIDIA RTX 3090 GPU and averaged over 30 runs. ResNet results are take from "ResNet Stikes Back" [20], “↑ 384” means a model is finetuned at the resolution 384 × 384. “OOM” means “out-of-memory”.|
+
+
+
+| ![HiLo attention - Object detection and instance segmentation results](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Hilo_table2.png) | 
+|:--:| 
+| <b> Object detection and instance segmentation performance:</b> performance is measured on the COCO val2017 split using the RetinaNet and Mask R-CNN framework. $AP^b$ and $AP^m$ denote the bounding box AP and mask AP, respectively. * indicates the model adopts a local window size of 4 in HiLo.|
 
 
 TODO: table 2, table 3
