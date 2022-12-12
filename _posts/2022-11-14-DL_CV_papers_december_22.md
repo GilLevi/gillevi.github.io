@@ -1,7 +1,7 @@
 ---
 title: 'Random deep learning and computer vision papers December 2022 edition'
 date: 2022-11-14
-permalink: /posts/DL_CV_papers_december_22
+permalink: /posts/gilgil
 tags:
   - arxiv
   - Deep Learning
