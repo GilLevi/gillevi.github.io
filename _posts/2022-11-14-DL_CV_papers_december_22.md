@@ -40,10 +40,10 @@ The authors provide an ablation of this component which demonstrate that simply 
 
 The results demonstrate improved or on-par performance with recent SSL methods as measured on ImageNet 1K when finetuning or when using linear probing, both with and without pre-training on JFT-300 [4] or on Imagenet [5]:
 
-<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/CAN_table2.png' width='400' height='400'/> <br/>
+<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/CAN_table2.png'> <br/>
 <b>JFT-300M pre-training:</b> Comparison to the state of the art on ImageNet linear probe. CAN outperforms all methods except DnC, which uses a complicated multi-stage training process. Computation is measured as ImageNet-equivalent epochs. †Our implementation.
 
-<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/CAN_table3.png' width='400' height='400'/> <br/>
+<img src='https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/CAN_table3.png'> <br/>
 <b>Pre-training on ImageNet-1K</b> 
 
 The results also show that the method scales well to JFT-300, hence the "scalable" part of the title. The method is also faster than methods which use the full image views, as it only "uses" 50% of the tokens in both views of the image (as opposed to SimCLR for example which augments the entire image) and does not use multiple views per image (such as DINO [6] or SwAV [7] which uses multi-crop), hence the "efficient" in the title. The paper is overall simple and elegant, does not use momentum encoder, hence the "simple" in the title. I should point out that it does not beat all other methods on all datasets, but the overall trade-off between results and simplicity is very good in my opinion. This is the main selling point of the paper: combining different semi-supervised techniques in a way which complement each other to obtain a unifed *simple* and *efficient* system. Keep in mind that the method can also be extended by adding a multiple views, momentum encoder or a tokenizer and a masking objective (as in BeiT[8]) to further improve the results, of course with the cost of complexity and slower running times. 
@@ -75,7 +75,7 @@ The method is tested on MS-COCO[10] and Flickr 30k[11] image captioning benchmar
 
 | ![CapDec results for image captioning](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_table1.png) | 
 |:--:| 
-| <b>Results for image captioning:</b> . <b>(A)</b> We use captions from the COCO and Flickr30k to train CapDec and evaluate on the datasets the captions were taken from. We report results for fully supervised methods that train on captioned images, and on methods that use no training text (ZeroCap), or just training text and no images (CapDec and MAGIC). <b>(B)</b> Similar setting to (A), but in cross-domain setup where training text is taken from one dataset, and evaluation is done on the second dataset.
+| <b>Results for image captioning:</b> . <b>(A)</b> We use captions from the COCO and Flickr30k to train CapDec and evaluate on the datasets the captions were taken from. We report results for fully supervised methods that train on captioned images, and on methods that use no training text (ZeroCap), or just training text and no images (CapDec and MAGIC). <b>(B)</b> Similar setting to (A), but in cross-domain setup where training text is taken from one dataset, and evaluation is done on the second dataset. 
 
 
 The authors also show strong performance on style-guided image captioning, a task where the method requires to generate captions in a certain text style in which labeled image-text data can be limited. Those results are summarised below along with several examples:
