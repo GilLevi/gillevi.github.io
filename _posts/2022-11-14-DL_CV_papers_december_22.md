@@ -75,7 +75,7 @@ The method is tested on MS-COCO[10] and Flickr 30k[11] image captioning benchmar
 
 | ![CapDec results for image captioning](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/capdec_table1.png) | 
 |:--:| 
-| <b>Results for image captioning:</b> . <b>(A)</b> We use captions from the COCO and Flickr30k to train CapDec and evaluate on the datasets the captions were taken from. We report results for fully supervised methods that train on captioned images, and on methods that use no training text (ZeroCap), or just training text and no images (CapDec and MAGIC). <b>(B)</b> Similar setting to (A), but in cross-domain setup where training text is taken from one dataset, and evaluation is done on the second dataset. 
+| <b>Results for image captioning:</b> . <b>(A)</b> We use captions from the COCO and Flickr30k to train CapDec and evaluate on the datasets the captions were taken from. We report results for fully supervised methods that train on captioned images, and on methods that use no training text (ZeroCap), or just training text and no images (CapDec and MAGIC). <b>(B)</b> Similar setting to (A), but in cross-domain setup where training text is taken from one dataset, and evaluation is done on the second dataset. |
 
 
 The authors also show strong performance on style-guided image captioning, a task where the method requires to generate captions in a certain text style in which labeled image-text data can be limited. Those results are summarised below along with several examples:
