@@ -104,22 +104,24 @@ First, the paper argue (and in my opinion rightfully so) that although many impr
 
 The proposed ViT architecture is based on changing the attention mechanism by seperating the self-attention heads into two groups. One group (1-$\alpha$) of the heads performs self-attention in local windows on the original high resolution feature map (denoted <i>Hi-Fi attention</i>), thus capturing fine details in small local windowns (characterised by high frequencies) while the second group perfoms regular global self attention but on a downscaled (max-pooled) version of the feature map (denoted <i>Lo-Fi attention</i>) to captured global structures (characterised by low frequencies). The features maps from the two groups are concatenated and passed to the following HiLo attention block. 
 
+TODO: figure 1
+
 The authors provide an ablation study measuring the effect of different choices of $\alpha$ (see figure below). As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning essentially removing the Hi-Fi attention and replacing the method with regular attention on downscaled feature maps performs competitively on ImageNet1K, but the authors report it provides worse results on dense prediction tasks such as semantic segmentaion (however, the authors do not provide an ablation using semgenatic segmenation, as far as I can tell).
 
-TODO: graph of alpha from papera
-TODO: add table 10 as well, very 
+TODO: figure 4
 
 The authors compare the proposed architecture with recent ViT and Convnet architectures on as backbone for Image Classification on ImageNet-1K, Object Detection and Instance Segmentation on COCO and Semantic Segmentation on ADE20K, demonstrating on-par (or better) accuracy against state-of-the-art methods while providing high throughput and a small memory footprint.
 
-TODO: add all tables here. 
+TODO: Table 1, table 2, table 3
 
-The authors further compare their proposed architecture against a wider array of more recent and stronger ViT architectures implemented across various different GPU models. The HiLo transformer achieves higher throughput (i.e.: faster running times) than all other methods on across all GPU models while still acheiving almost the highest top-1 accuracy on ImageNet-1K. 
+The authors further compare their proposed architecture against a wider array of more recent and stronger ViT architectures implemented across various different GPU models. The HiLo transformer achieves higher throughput (i.e.: faster running times) than all other methods on across all GPU models while still acheiving almost the highest top-1 accuracy on ImageNet-1K.
 
-TODO: add table 10
+TODO: add table 6
 
-STOP HERE
 
 Overall, the paper presents a simple and effieicnt ViT attention machanism, with an emaphsis on having a "GPU friendly" implementation that achieves high throughput. There was a similar paper presented in ECCV with the same motivation, that considers effieicnt ViT architecures for edge devices: EdgeViTs: Competing Light-Weight CNNs on Mobile Devices with Vision Transformers ([arxiv](https://arxiv.org/abs/2205.03436)). 
+
+TODO: add table 10
 
 
 
