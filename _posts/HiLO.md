@@ -1,0 +1,63 @@
+---
+title: 'Fast Vision Transformers with HiLo Attention'
+date: 2022-11-14
+permalink: /posts/Deit3
+tags:
+  - Deep Learning
+  - Computer Vision
+  - Research
+  - Papers
+  - Vision Transformer 
+
+---
+
+
+[Fast Vision Transformers with HiLo Attention](https://arxiv.org/abs/2205.13213)
+======
+
+
+[arxiv](https://arxiv.org/abs/2205.13213),  [code](https://github.com/ziplab/LITv2) , keywords: Vision Transformers, Venue: Neurips 2022 spotlight paper
+
+The paper proposes a novel efficient ViT architecture with throughput in mind to mitigate ViT's high computational complexity which stems from the quadratic memory and time complexity of the attention mechanism. 
+
+First, the paper argue (and in my opinion rightfully so) that although many improved and more efficient ViT architectures have been proposed, in practice they do not offer high processing speed. This claim might seem contradictory, but in fact previous works usually consider metrics such as number of FLOPS, memory usage and asymptotic computational complexity (which are important by themselves), but those metrics do no capture the actual running time or throughput nor those works directly measure those. Moreover, specific architectures with small number of FLOPS and memory requirements or lower asymptotic complexity as might actually run slowly when implemented on GPU due to specific operations which not hardware-friendly or cannot be parallelized. To this end, the paper directly benchmarks FLOPS and memory consumption as well as throughput (on GPU) and proposes a ViT architecture that performs favourably in those metrics while achieving high accuracy when used as backbone in classification and various down-stream vision tasks. 
+
+The proposed ViT architecture is based on changing the attention mechanism by seperating the self-attention heads into two groups. One group (1-$\alpha$) of the heads performs self-attention in local windows on the original high resolution feature map (denoted <i>Hi-Fi attention</i>), thus capturing fine details in small local windowns (characterised by high frequencies) while the second group perfoms regular global self attention but on a downscaled (max-pooled) version of the feature map (denoted <i>Lo-Fi attention</i>) to captured global structures (characterised by low frequencies). The features maps from the two groups are concatenated and passed to the following HiLo attention block. 
+
+| ![HiLo attention framework](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Hilo_figure1.png) | 
+|:--:| 
+| <b>Framework of HiLo attention:</b>  $N_h$ refers to the total number of self-attention heads at this layer. $\alhpa$ denotes the split ratio for high/low frequency heads. |
+
+The authors provide an ablation study measuring the effect of different choices of $\alpha$ (see figure below). As $\alpha$ increases, the fraction of heads allocated to the second group performing global attention on the downscaled feature map increases, bringing more "attention" (apologies for the "notation overloading") to global structures. This also reduces FLOPS and improves the running time as Lo-Fi attention has lower computational complexity than Hi-Fi attention. The authors find that the best performance is obtained when $\alpha=0.9$, meaning 90% of the heads perform global attention on the downscaled features maps and only 10% of the heads attend to local fine details. Interestingly, setting $\alpha=1.0$, meaning essentially removing the Hi-Fi attention and replacing the method with regular attention on downscaled feature maps performs competitively on ImageNet1K, but the authors report it provides worse results on dense prediction tasks such as semantic segmentaion (however, the authors do not provide an ablation using semgenatic segmenation, as far as I can tell).
+
+| ![HiLo attention - effect of alpha](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Hilo_figure4.png) | 
+|:--:| 
+| Effect of $\alpha$ based on LITv2-S |
+
+The authors compare the proposed architecture with recent ViT and Convnet architectures on as backbone for Image Classification on ImageNet-1K, Object Detection and Instance Segmentation on COCO and Semantic Segmentation on ADE20K, demonstrating on-par (or better) accuracy against state-of-the-art methods while providing high throughput and a small memory footprint.
+
+
+| ![HiLo attention - results on Imagenet 1K](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Hilo_table1.png) | 
+|:--:| 
+| <b> Image classification results on ImageNet-1K:</b> By default, the FLOPs, throughput and memory consumption are measured based on the resolution 224 × 224 with a batch size of 64. Throughput is tested on one NVIDIA RTX 3090 GPU and averaged over 30 runs. ResNet results are take from "ResNet Stikes Back" [20], “↑ 384” means a model is finetuned at the resolution 384 × 384. “OOM” means “out-of-memory”.|
+
+
+
+| ![HiLo attention - Object detection and instance segmentation results](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Hilo_table2.png) | 
+|:--:| 
+| <b> Object detection and instance segmentation performance:</b> performance is measured on the COCO val2017 split using the RetinaNet and Mask R-CNN framework. $AP^b$ and $AP^m$ denote the bounding box AP and mask AP, respectively. * indicates the model adopts a local window size of 4 in HiLo.|
+
+
+| ![HiLo attention - Semantic segmenation results](https://github.com/GilLevi/gillevi.github.io/blob/master/_posts/random_papers_nov22/Hilo_table3.png) | 
+|:--:| 
+| Semantic segmentation performance of different backbones on the ADE20K validation set. FLOPs is evaluated based on the image resolution of 512 × 512.|
+
+
+The authors further compare their proposed architecture against a wider array of more recent and stronger ViT architectures implemented across various different GPU models. The HiLo transformer achieves higher throughput (i.e.: faster running times) than all other methods on across all GPU models while still acheiving almost the highest top-1 accuracy on ImageNet-1K.
+
+TODO: add table 6
+
+
+Overall, the paper presents a simple and effieicnt ViT attention machanism, with an emaphsis on having a "GPU friendly" implementation that achieves high throughput. There was a similar paper presented in ECCV with the same motivation, that considers effieicnt ViT architecures for edge devices: EdgeViTs: Competing Light-Weight CNNs on Mobile Devices with Vision Transformers ([arxiv](https://arxiv.org/abs/2205.03436)). 
+
+TODO: add table 10
