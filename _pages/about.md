@@ -8,5 +8,6 @@ redirect_from:
   - /about.html
 ---
 
-I have been working in software and algorithms engineering for the past 10+ years, I'm particularly interested in Computer Vision, Deep Learning and Natural Language Processing (and the various methods and applications in which they are combined). I published several papers in those fields and in recent years been mostly reviewing (Neurips, ICLR, CVPR, I/ECCV... you name it), keeping up to date with DL/CV research while working in the industry develping and delivering AI products. 
+I have been working in AI research and engineering for the past 10+ years, I'm particularly interested in Computer Vision, Deep Learning and Natural Language Processing (and the various methods and applications in which they are combined). I published several papers in those fields,  voluntarily taught DL and CV courses and peer-reviewed for top conferences and journals.
 
+Contact me at gillevi100@gmail.com, my old blog (at until I move all posts here) can be reached [here](https://gilscvblog.com/)
