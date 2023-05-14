@@ -146,4 +146,6 @@ To summarize, the paper demonstrates that cross-modality joint embedding can be 
   
 [17] Bain, Max, et al. "Frozen in time: A joint video and image encoder for end-to-end retrieval." CVPR. 2021.
 
+[18] Ramesh, Aditya, et al. "Hierarchical text-conditional image generation with clip latents." arXiv preprint arXiv:2204.06125 (2022).
+
 
