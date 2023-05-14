@@ -13,10 +13,10 @@ tags:
   - Muti-modal 
 ---
 
-|  ![](/posts/ImageBind/Figure2.png) |
+<!-- |  ![](/posts/ImageBind/Figure2.png) |
 |:--:| 
 |  |
-
+ -->
 The proposed idea is simple - mapping six different modalities to a joint embedding space. This allows data samples from different modalities, which share the same semantic meaning, to be mapped to similar vectors (i.e., vectors that are close in the cosine similarity metric) within the embedding space. Embedding modalities using explicitly aligned training data has been proposed before. For instance, the seminal works of CLIP[1] and ALIGN[2] map images and text to a joint embedding space. AudioCLIP[3] extends CLIP by adding an audio modality, and "Everything at Once"[4] embeds audio, images, and text into a joint mapping space to leverage the audio modality in video retrieval. However, embedding six different modalities - images, text, audio, depth, thermal, and Inertial Measurement Unit (IMU) data - particularly those without explicitly aligned training data or even datasets where they naturally coexist (e.g., you probably wouldn't find dataset of depth images associated with sounds) is a challenge that hasn't been tackled before. In my opinion, this opens the door to many new applications.
 
 | [Blog post](https://ai.facebook.com/blog/imagebind-six-modalities-binding-ai/), [Paper](https://arxiv.org/abs/2305.05665), [Code](https://github.com/facebookresearch/ImageBind), [Video](https://dl.fbaipublicfiles.com/imagebind/imagebind_video.mp4), [Demo](https://imagebind.metademolab.com/demo)  |
@@ -33,7 +33,6 @@ In greater detail, the authors utilize the visual modality as the common link be
 Consider a pair of modalities (I,M), where I represents images and M represents another modality. We learn two mapping functions, f and g, where f operates on images and g operates on the other modality. Given an image I_i and its corresponding data sample in the other modality M_i, we apply f to I_i and g to M_i to obtain the normalized embeddings qi = f(Ii) and ki = g(Mi). Both the encoders and the embeddings are learned by optimizing the InfoNCE loss[5]:
 
 **InfoNCE equation**
-
 
 
 There t is a scalar controlling the temperature and j denotes unrelated data samples in the batch, where every j =! i  is considered a negative pair. Optimizing this loss makes q_i and k_i close in the embedding space and optimizing on a large data set thus aligns the two modalities I and M. In practice, the symmetric loss L = L_I,M + L_M,I is used. 
@@ -68,8 +67,11 @@ The authors further compare the emergent zero-shot audio classification and retr
   
 |  ![Emergent zero-shot audio retrieval and classification](/posts/ImageBind/Table3.png) |
 |:--:| 
-| We compare IMAGEBIND to prior work on zero-shot audio retrieval and audio classification. Without using audio-specific supervision, IMAGEBIND outperforms prior methods on zero-shot retrieval and has comparable performance on the classification task. IMAGEBIND’s emergent zero shot performance approaches those of specialist supervised models. |  
+|  |  
 
+  
+<!-- We compare IMAGEBIND to prior work on zero-shot audio retrieval and audio classification. Without using audio-specific supervision, IMAGEBIND outperforms prior methods on zero-shot retrieval and has comparable performance on the classification task. IMAGEBIND’s emergent zero shot performance approaches those of specialist supervised models. -->
+  
 The authors use MSR-VTT-1A to evaluate the text-to-audio and video retrieval capabilities of ImageBind. It's worth noting that the methods compared against are somewhat outdated, given the fast-paced progress in AI today. More recent methods, such as CLIP2TV[15], Florence[16], and Frozen in Time[17], perform dramatically better. Interestingly, 'Everything at Once' [4], which embeds text, audio, and video into a joint space, is not included in the comparison. This omission is notable, in my opinion, as it represents an excellent baseline to include and discuss, given that it's one of the few works that performs zero-shot text-to-audio+vision retrieval. Using the vision modality alone, ImageBind achieves a 36.1% recall@1, which matches OpenCLIP’s performance as it uses OpenCLIP’s text and image encoders. The inclusion of the audio modality increases this result to 36.8%.
 
 An interesting property of the learned embedding space is multimodal arithmetic. We can compose semantic information from different modalities by summing the corresponding semantic vectors. For example, adding the embedding vector of an image of fruits on a table to the embedding vector of the sound of chirping birds could result in an embedding vector that captures both semantic concepts. This might correspond to an image of a tree with fruits and birds on the branches. The figure below (Figure 4 in the paper) demonstrates some qualitative results:
@@ -77,21 +79,24 @@ An interesting property of the learned embedding space is multimodal arithmetic.
 
 |  ![Embedding space arithmetic](/posts/ImageBind/Figure4.png) |
 |:--:| 
-|Embedding space arithmetic : where we add image and audio embeddings, and use them for image retrieval. The composed embeddings naturally capture semantics from different modalities. Embeddings from an image of fruits + the sound of birds retrieves images of birds surrounded by fruits |
+| |
+  
+<!-- Embedding space arithmetic : where we add image and audio embeddings, and use them for image retrieval. The composed embeddings naturally capture semantics from different modalities. Embeddings from an image of fruits + the sound of birds retrieves images of birds surrounded by fruits   -->
   
 The authors also demonstrate that text prompts can be replaced by audio prompts to enable “sound-based” object detection and image generation which also qualitatively show alignment between the different modalities. 
  
 |  ![Object detection with audio queries](/posts/ImageBind/Figure5.png) |
 |:--:| 
-|  Simply replacing Detic [86]’s CLIP-based ‘class’ embeddings with our audio embeddings leads to an object detector promptable with audio. This requires no re-training of any model.|
+|  |
   
+<!-- Simply replacing Detic [86]’s CLIP-based ‘class’ embeddings with our audio embeddings leads to an object detector promptable with audio. This requires no re-training of any model. -->
   
 Unfortunately, the paper does not provide any qualitative results on sound-based object detection. An interesting experiment would be to use the same pipeline and dataset to measure object detection with text prompts versus audio prompts and evaluate the degradation. Additionally, the paper (and the demo) do not show qualitative results for the thermal or depth modalities. Only a few qualitative results for the IMU are provided in Figure 7 in the appendix. However, now that the model and code have been released, the community can analyze and examine the performance and limitations of ImageBind across the different modalities. 
   
   
 |  ![IMU retrievals](/posts/ImageBind/Figure7.png) |
 |:--:| 
-| Given a text query, we show some IMU retrievals and corresponding video frames. |  
+| IMU retrievals and corresponding video frames for a text query. |  
   
   
 To summarize, the paper demonstrates that cross-modality joint embedding can be learned without explicit supervision by using vision as a "binding" modality instead. The paper showcases zero-shot capabilities across modalities. However, as acknowledged by the paper, these are early results, and the model is not yet robust enough for real-world applications. Nonetheless, this research opens the door for further exploration and experimentation.
