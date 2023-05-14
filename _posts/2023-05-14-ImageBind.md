@@ -54,7 +54,9 @@ The zero-shot classification performance of the model can be evaluated using tex
   
 The table below (Table 2 in the paper) details the full zero-shot (blank columns) and emergent zero-shot (blue columns) performances. ImageBind’s performance is given in the second row, while the third row, labeled "Text-Paired," refers to the performance of the best method trained using (text, <other modality>) pairs. The last row, "Absolute SOTA," references the state-of-the-art performance on the benchmarks using explicit labels.
   
-Table 2
+|  ![Emergent zero-shot classification](/posts/ImageBind/Table2.png) |
+|:--:| 
+| Emergent zero-shot classification of IMAGEBIND using text prompts highlighted in blue. IMAGEBIND aligns images with text, depth, audio, thermal and IMU modalities. The resulting embedding space can associate text embeddings with the non-image modalities, and leads to strong emergent zero-shot classification. We show strong performance even on non-visual modalities such as audio and IMU. We compare to ‘Text Paired’ baselines wherever possible, which trains with paired text data for that modality. ∗We use the OpenCLIP ViTH [29] on depth rendered as grayscale images. † [26] that uses AS class names as supervision during training, and hence is not “zero shot”. Overall, IMAGEBIND shows strong emergent zero-shot performance, even compared to such upper bounds. We also report the absolute state-of-the-art (SOTA) on each dataset for reference, which typically uses additional supervision, model ensembles etc. We report the top-1 classification accuracy for all datasets except MSR-VTT (Recall@1) and Audioset Audio-only (mAP)|
   
 Looking at the results, we can see that the model performs much better than random, demonstrating alignment between two disconnected modalities. Moreover, while the model was never trained on (text, audio) pairs, it performed better on ESC than a model that was performed on (text,audio) pairs. In my opinion, the comparison to the Text Paired “method” on the depth modality benchmarks should be taken with a grain of salt - ImageBind performance better than the “Text Paired” method, but the “Text Paired” method is a baseline obtained by converting the depth images to grayscale and passing them to OpenCLIP Vit-H which properly contained very little (text, depth as grayscale) data pairs in its training dataset. 
 
@@ -64,18 +66,26 @@ Examining the results, we can observe that the model performs significantly bett
 The authors further compare the emergent zero-shot audio classification and retrieval performance of ImageBind to previous methods that use text supervision. Specifically, ImageBind is compared to AudioCLIP[3] which uses (audio, text) supervision and to AVFIC [14] which uses automatically minded (audio, text) pairs. The results are listed in the table below (Table 3 in the paper). ImageBind outperforms AVFIC and achieves comparable performance to AudioCLIP without training on explicit (text, audio) supervision, demonstrating emergent zero-shot audio retrieval and classification capabilities.  
 
   
-Table 3
-  
+|  ![Emergent zero-shot audio retrieval and classification](/posts/ImageBind/Table3.png) |
+|:--:| 
+| We compare IMAGEBIND to prior work on zero-shot audio retrieval and audio classification. Without using audio-specific supervision, IMAGEBIND outperforms prior methods on zero-shot retrieval and has comparable performance on the classification task. IMAGEBIND’s emergent zero shot performance approaches those of specialist supervised models. |  
+
 The authors use MSR-VTT-1A to evaluate the text-to-audio and video retrieval capabilities of ImageBind. It's worth noting that the methods compared against are somewhat outdated, given the fast-paced progress in AI today. More recent methods, such as CLIP2TV[15], Florence[16], and Frozen in Time[17], perform dramatically better. Interestingly, 'Everything at Once' [4], which embeds text, audio, and video into a joint space, is not included in the comparison. This omission is notable, in my opinion, as it represents an excellent baseline to include and discuss, given that it's one of the few works that performs zero-shot text-to-audio+vision retrieval. Using the vision modality alone, ImageBind achieves a 36.1% recall@1, which matches OpenCLIP’s performance as it uses OpenCLIP’s text and image encoders. The inclusion of the audio modality increases this result to 36.8%.
 
 An interesting property of the learned embedding space is multimodal arithmetic. We can compose semantic information from different modalities by summing the corresponding semantic vectors. For example, adding the embedding vector of an image of fruits on a table to the embedding vector of the sound of chirping birds could result in an embedding vector that captures both semantic concepts. This might correspond to an image of a tree with fruits and birds on the branches. The figure below (Figure 4 in the paper) demonstrates some qualitative results:
 
-Figure 4
 
+|  ![Embedding space arithmetic](/posts/ImageBind/Figure4.png) |
+|:--:| 
+|Embedding space arithmetic : where we add image and audio embeddings, and use them for image retrieval. The composed embeddings naturally capture semantics from different modalities. Embeddings from an image of fruits + the sound of birds retrieves images of birds surrounded by fruits |
+  
 The authors also demonstrate that text prompts can be replaced by audio prompts to enable “sound-based” object detection and image generation which also qualitatively show alignment between the different modalities. 
  
-Dog barking
-
+|  ![Object detection with audio queries](/posts/ImageBind/Figure5.png) |
+|:--:| 
+|  Simply replacing Detic [86]’s CLIP-based ‘class’ embeddings with our audio embeddings leads to an object detector promptable with audio. This requires no re-training of any model.|
+  
+  
 Unfortunately, the paper does not provide any qualitative results on sound-based object detection. An interesting experiment would be to use the same pipeline and dataset to measure object detection with text prompts versus audio prompts and evaluate the degradation. Additionally, the paper (and the demo) do not show qualitative results for the thermal or depth modalities. Only a few qualitative results for the IMU are provided in Figure 7 in the appendix. However, now that the model and code have been released, the community can analyze and examine the performance and limitations of ImageBind across the different modalities. 
   
   
