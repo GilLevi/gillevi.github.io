@@ -13,6 +13,10 @@ tags:
   - Muti-modal 
 ---
 
+|  ![](/posts/ImageBind/Figure2.png) |
+|:--:| 
+|  |
+
 The proposed idea is simple - mapping six different modalities to a joint embedding space. This allows data samples from different modalities, which share the same semantic meaning, to be mapped to similar vectors (i.e., vectors that are close in the cosine similarity metric) within the embedding space. Embedding modalities using explicitly aligned training data has been proposed before. For instance, the seminal works of CLIP[1] and ALIGN[2] map images and text to a joint embedding space. AudioCLIP[3] extends CLIP by adding an audio modality, and "Everything at Once"[4] embeds audio, images, and text into a joint mapping space to leverage the audio modality in video retrieval. However, embedding six different modalities - images, text, audio, depth, thermal, and Inertial Measurement Unit (IMU) data - particularly those without explicitly aligned training data or even datasets where they naturally coexist (e.g., you probably wouldn't find dataset of depth images associated with sounds) is a challenge that hasn't been tackled before. In my opinion, this opens the door to many new applications.
 
 | [Blog post](https://ai.facebook.com/blog/imagebind-six-modalities-binding-ai/), [Paper](https://arxiv.org/abs/2305.05665), [Code](https://github.com/facebookresearch/ImageBind), [Video](https://dl.fbaipublicfiles.com/imagebind/imagebind_video.mp4), [Demo](https://imagebind.metademolab.com/demo)  |
@@ -20,9 +24,7 @@ The proposed idea is simple - mapping six different modalities to a joint embedd
 | <!-- --> |
 
 
-Figure 1
-
-|  ![ImageBind overview](/posts/IageBind/Figure1.png) |
+|  ![ImageBind overview](/posts/ImageBind/Figure1.png) |
 |:--:| 
 | By aligning six modalities’ embedding into a common space, IMAGEBIND enables: 1) Cross-Modal Retrieval, which shows emergent alignment of modalities such as audio, depth or text, that aren’t observed together. 2) Adding embeddings from different modalities naturally composes their semantics. And 3) Audio-toImage generation, by using ImageBind's audio embeddings with a pre-trained DALLE-2 [] decoder designed to work with CLIP text embeddings. |
 
@@ -38,7 +40,9 @@ There t is a scalar controlling the temperature and j denotes unrelated data sam
 
 This formulation assumes that for every modality M, we have a large-scale dataset with corresponding pairs (I_i, M_i). This is true for text, as large-scale text-image datasets have been collected (notably by the LAION Foundation[6,7,8]), but not for the other four modalities. However, such pairings naturally arise from other existing datasets. To this end, the authors used the (video, audio) pairs from the Audioset dataset [9], the (image, depth) pairs from the SUN RGB-D dataset [10], the (image, thermal) pairs from the LLVIP dataset [11], and the (video, IMU) pairs from the Ego4D dataset [12]. Note that ImageBind optimizes using only pairs of images and samples from other modalities, i.e., pairs of the form (I,M). The model is never explicitly trained to align other (M1, M2) pairs of modalities, such as learning to align depth maps with text. However, by optimizing the two "connections" (I, M1) and (I, M2), the alignment of M1 and M2 naturally emerges (similar to transitivity in math), allowing the model to perform zero-shot cross-modality retrieval between any pair of modalities.
 
-Figure 2
+|  ![IMAGEBIND overview](/posts/ImageBind/Figure2.png) |
+|:--:| 
+| Different modalities occur naturally aligned in different data sources, for instance images+text and video+audio in web data, depth or thermal information with images, IMU data in videos captured with egocentric cameras, etc. IMAGEBIND links all these modalities in a common embedding space, enabling new emergent alignments and capabilities. |
 
 In practice, the authors do not directly use image and text datasets. Instead, for simplicity, they use the pre-trained vision and text encoders from OpenCLIP[13], which are kept frozen during training. Audio is converted into 2D mel-spectrograms, and the thermal and depth modalities are converted into single-channel images. These are then passed to ViT encoders. For the IMU data, which consists of acceleration and gyroscope measurements across the X, Y, and Z axes, five-second clips containing 2K samples are projected using 1D convolution with a kernel size of 8. Then, the entire sequence is passed to a Transformer. A linear projection head is added to each modality encoder to obtain a fixed-size, d-dimensional embedding that is normalized and used in the InfoNCE loss.
  
@@ -48,7 +52,7 @@ Table 1
   
 The table below (Table 2 in the paper) details the full zero-shot (blank columns) and emergent zero-shot (blue columns) performances. ImageBind’s performance is given in the second row, while the third row, labeled "Text-Paired," refers to the performance of the best method trained using (text, <other modality>) pairs. The last row, "Absolute SOTA," references the state-of-the-art performance on the benchmarks using explicit labels.
   
-Table 1
+Table 2
   
 Looking at the results, we can see that the model performs much better than random, demonstrating alignment between two disconnected modalities. Moreover, while the model was never trained on (text, audio) pairs, it performed better on ESC than a model that was performed on (text,audio) pairs. In my opinion, the comparison to the Text Paired “method” on the depth modality benchmarks should be taken with a grain of salt - ImageBind performance better than the “Text Paired” method, but the “Text Paired” method is a baseline obtained by converting the depth images to grayscale and passing them to OpenCLIP Vit-H which properly contained very little (text, depth as grayscale) data pairs in its training dataset. 
 
