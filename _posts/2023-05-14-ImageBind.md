@@ -67,10 +67,12 @@ Examining the results, we can observe that the model performs significantly bett
 The authors further compare the emergent zero-shot audio classification and retrieval performance of ImageBind to previous methods that use text supervision. Specifically, ImageBind is compared to AudioCLIP[3] which uses (audio, text) supervision and to AVFIC [14] which uses automatically minded (audio, text) pairs. The results are listed in the table below (Table 3 in the paper). ImageBind outperforms AVFIC and achieves comparable performance to AudioCLIP without training on explicit (text, audio) supervision, demonstrating emergent zero-shot audio retrieval and classification capabilities.  
 
   
-|  ![Emergent zero-shot audio retrieval and classification](/posts/ImageBind/Table3.png) |
-|:--:| 
-|  |  
+![Emergent zero-shot audio retrieval and classification](/posts/ImageBind/Table3.png) 
+ 
 
+<!--   |  ![Emergent zero-shot audio retrieval and classification](/posts/ImageBind/Table3.png) |
+|:--:| 
+|  |   -->
   
 <!-- We compare IMAGEBIND to prior work on zero-shot audio retrieval and audio classification. Without using audio-specific supervision, IMAGEBIND outperforms prior methods on zero-shot retrieval and has comparable performance on the classification task. IMAGEBIND’s emergent zero shot performance approaches those of specialist supervised models. -->
   
@@ -80,16 +82,21 @@ An interesting property of the learned embedding space is multimodal arithmetic.
 
 
 |  ![Embedding space arithmetic](/posts/ImageBind/Figure4.png) |
+  
+<!-- |  ![Embedding space arithmetic](/posts/ImageBind/Figure4.png) |
 |:--:| 
-| |
+| |   -->
   
 <!-- Embedding space arithmetic : where we add image and audio embeddings, and use them for image retrieval. The composed embeddings naturally capture semantics from different modalities. Embeddings from an image of fruits + the sound of birds retrieves images of birds surrounded by fruits   -->
   
 The authors also demonstrate that text prompts can be replaced by audio prompts to enable “sound-based” object detection and image generation which also qualitatively show alignment between the different modalities. 
  
-|  ![Object detection with audio queries](/posts/ImageBind/Figure5.png) |
+![Object detection with audio queries](/posts/ImageBind/Figure5.png) 
+  
+<!--   |  ![Object detection with audio queries](/posts/ImageBind/Figure5.png) |
 |:--:| 
 |  |
+   -->
   
 <!-- Simply replacing Detic [86]’s CLIP-based ‘class’ embeddings with our audio embeddings leads to an object detector promptable with audio. This requires no re-training of any model. -->
   
