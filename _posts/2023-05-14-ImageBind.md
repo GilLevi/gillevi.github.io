@@ -22,6 +22,10 @@ The proposed idea is simple - mapping six different modalities to a joint embedd
 
 Figure 1
 
+|  ![ImageBind overview](/posts/IageBind/Figure1.png) |
+|:--:| 
+| By aligning six modalities’ embedding into a common space, IMAGEBIND enables: 1) Cross-Modal Retrieval, which shows emergent alignment of modalities such as audio, depth or text, that aren’t observed together. 2) Adding embeddings from different modalities naturally composes their semantics. And 3) Audio-toImage generation, by using ImageBind's audio embeddings with a pre-trained DALLE-2 [] decoder designed to work with CLIP text embeddings. |
+
 In greater detail, the authors utilize the visual modality as the common link between the modalities by aligning each modality's embeddings to those of the images. For instance, IMU data is aligned with video using video data captured from egocentric cameras equipped with IMU. Here, the embeddings of the images and the second modality are learned using InfoNCE loss[5].
 
 Consider a pair of modalities (I,M), where I represents images and M represents another modality. We learn two mapping functions, f and g, where f operates on images and g operates on the other modality. Given an image I_i and its corresponding data sample in the other modality M_i, we apply f to I_i and g to M_i to obtain the normalized embeddings qi = f(Ii) and ki = g(Mi). Both the encoders and the embeddings are learned by optimizing the InfoNCE loss[5]:
