@@ -15,11 +15,6 @@ tags:
 
 The proposed idea is simple - mapping six different modalities to a joint embedding space. This allows data samples from different modalities, which share the same semantic meaning, to be mapped to similar vectors (i.e., vectors that are close in the cosine similarity metric) within the embedding space. Embedding modalities using explicitly aligned training data has been proposed before. For instance, the seminal works of CLIP[1] and ALIGN[2] map images and text to a joint embedding space. AudioCLIP[3] extends CLIP by adding an audio modality, and "Everything at Once"[4] embeds audio, images, and text into a joint mapping space to leverage the audio modality in video retrieval. However, embedding six different modalities - images, text, audio, depth, thermal, and Inertial Measurement Unit (IMU) data - particularly those without explicitly aligned training data or even datasets where they naturally coexist (e.g., you probably wouldn't find dataset of depth images associated with sounds) is a challenge that hasn't been tackled before. In my opinion, this opens the door to many new applications.
 
-Blog https://ai.facebook.com/blog/imagebind-six-modalities-binding-ai/ 
-Paper https://arxiv.org/abs/2305.05665 
-Code https://github.com/facebookresearch/ImageBind 
-Video https://dl.fbaipublicfiles.com/imagebind/imagebind_video.mp4 
-Demo: https://imagebind.metademolab.com/demo 
 | [Blog post](https://ai.facebook.com/blog/imagebind-six-modalities-binding-ai/), [Paper](https://arxiv.org/abs/2305.05665), [Code](https://github.com/facebookresearch/ImageBind), [Video](https://dl.fbaipublicfiles.com/imagebind/imagebind_video.mp4), [Demo](https://imagebind.metademolab.com/demo)  |
 |:--:|
 | <!-- --> |
@@ -33,6 +28,7 @@ Consider a pair of modalities (I,M), where I represents images and M represents 
 
 **InfoNCE equation**
 
+$ L_{I,M} = -log /frac{exp(q^T_{i})//tau} {}$
 
 There t is a scalar controlling the temperature and j denotes unrelated data samples in the batch, where every j =! i  is considered a negative pair. Optimizing this loss makes q_i and k_i close in the embedding space and optimizing on a large data set thus aligns the two modalities I and M. In practice, the symmetric loss L = L_I,M + L_M,I is used. 
 
