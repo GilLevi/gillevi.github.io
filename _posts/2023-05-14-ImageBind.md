@@ -128,9 +128,13 @@ To summarize, the paper demonstrates that cross-modality joint embedding can be 
 [12] Grauman, Kristen, et al. "Ego4d: Around the world in 3,000 hours of egocentric video." CVPR. 2022.
   
 [13] Gabriel Ilharco, Mitchell Wortsman, Ross Wightman, Cade Gordon, Nicholas Carlini, Rohan Taori, Achal Dave, Vaishaal Shankar, Hongseok Namkoong, John Miller, Hannaneh Hajishirzi, Ali Farhadi, and Ludwig Schmidt. Openclip, 2021, https://github.com/mlfoundations/open_clip 
+  
 [14] Nagrani, Arsha, et al. "Learning audio-video modalities from image captions." , ECCV 2022
+  
 [15] Gao, Zijian, et al. "CLIP2TV: Align, Match and Distill for Video-Text Retrieval." arXiv preprint arXiv:2111.05610 (2021).
+  
 [16] Yuan, Lu, et al. "Florence: A new foundation model for computer vision." arXiv preprint arXiv:2111.11432 (2021).
+  
 [17] Bain, Max, et al. "Frozen in time: A joint video and image encoder for end-to-end retrieval." CVPR. 2021.
 
 
