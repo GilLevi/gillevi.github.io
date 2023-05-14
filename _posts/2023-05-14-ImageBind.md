@@ -33,7 +33,7 @@ In greater detail, the authors utilize the visual modality as the common link be
 Consider a pair of modalities (I,M), where I represents images and M represents another modality. We learn two mapping functions, f and g, where f operates on images and g operates on the other modality. Given an image I_i and its corresponding data sample in the other modality M_i, we apply f to I_i and g to M_i to obtain the normalized embeddings qi = f(Ii) and ki = g(Mi). Both the encoders and the embeddings are learned by optimizing the InfoNCE loss[5]:
 
 **InfoNCE equation**
-
+$ L_{I,M}= -\text{log}\frac{\text{exp}(q^{T}_ik_i/\tau)}{\text{exp}(q^{T}_ik_i/\tau) + }$
 
 There t is a scalar controlling the temperature and j denotes unrelated data samples in the batch, where every j =! i  is considered a negative pair. Optimizing this loss makes q_i and k_i close in the embedding space and optimizing on a large data set thus aligns the two modalities I and M. In practice, the symmetric loss L = L_I,M + L_M,I is used. 
 
