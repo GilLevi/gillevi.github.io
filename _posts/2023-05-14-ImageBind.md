@@ -89,7 +89,10 @@ The authors also demonstrate that text prompts can be replaced by audio prompts 
 Unfortunately, the paper does not provide any qualitative results on sound-based object detection. An interesting experiment would be to use the same pipeline and dataset to measure object detection with text prompts versus audio prompts and evaluate the degradation. Additionally, the paper (and the demo) do not show qualitative results for the thermal or depth modalities. Only a few qualitative results for the IMU are provided in Figure 7 in the appendix. However, now that the model and code have been released, the community can analyze and examine the performance and limitations of ImageBind across the different modalities. 
   
   
-Cooking a meal figure
+|  ![IMU retrievals](/posts/ImageBind/Figure7.png) |
+|:--:| 
+| Given a text query, we show some IMU retrievals and corresponding video frames. |  
+  
   
 To summarize, the paper demonstrates that cross-modality joint embedding can be learned without explicit supervision by using vision as a "binding" modality instead. The paper showcases zero-shot capabilities across modalities. However, as acknowledged by the paper, these are early results, and the model is not yet robust enough for real-world applications. Nonetheless, this research opens the door for further exploration and experimentation.
 
