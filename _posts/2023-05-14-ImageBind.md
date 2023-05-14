@@ -85,7 +85,7 @@ The authors use MSR-VTT-1A to evaluate the text-to-audio and video retrieval cap
 An interesting property of the learned embedding space is multimodal arithmetic. We can compose semantic information from different modalities by summing the corresponding semantic vectors. For example, adding the embedding vector of an image of fruits on a table to the embedding vector of the sound of chirping birds could result in an embedding vector that captures both semantic concepts. This might correspond to an image of a tree with fruits and birds on the branches. The figure below (Figure 4 in the paper) demonstrates some qualitative results:
 
 
-|  ![Embedding space arithmetic](/posts/ImageBind/Figure4.png) |
+![Embedding space arithmetic](/posts/ImageBind/Figure4.png) 
   
 <!-- |  ![Embedding space arithmetic](/posts/ImageBind/Figure4.png) |
 |:--:| 
