@@ -30,7 +30,7 @@ The proposed idea is simple - mapping six different modalities to a joint embedd
 
 In greater detail, the authors utilize the visual modality as the common link between the modalities by aligning each modality's embeddings to those of the images. For instance, IMU data is aligned with video using video data captured from egocentric cameras equipped with IMU. Here, the embeddings of the images and the second modality are learned using InfoNCE loss[5].
 
-Consider a pair of modalities $(I,M)$, where $I$ represents images and $M$ represents another modality. We learn two mapping functions, $f$ and $g$, where $f$ operates on images and $g$ operates on the other modality. Given an image $I_i$ and its corresponding data sample in the other modality $M_i$, we apply $f$ to $I_i$ and $g$ to $M_i$ to obtain the normalized embeddings $q_i = f(I_i)$ and $k_i = g(M_i)$. Both the encoders and the embeddings are learned by optimizing the InfoNCE loss[5]:
+Consider a pair of modalities $(I,M)$, where $I$ represents images and $M$ represents another modality. We learn two mapping functions, $f$ and $g$, where $f$ operates on images and $g$ operates on the other modality. Given an image $I_i$ and its corresponding data sample in the other modality $M_i$ , we apply $f$ to $I_i$ and $g$ to $M_i$ to obtain the normalized embeddings $q_i = f(I_i)$ and $k_i = g(M_i)$. Both the encoders and the embeddings are learned by optimizing the InfoNCE loss[5]:
 
 $ L_{I,M}= -\text{log}\frac{\text{exp}(q^{T}_ik_i/\tau)}{\text{exp}(q^{T}_ik_i/\tau) + \sum _{i 
 \not= j}{\text{exp}(q^{T}_ik_j/\tau)} } $
