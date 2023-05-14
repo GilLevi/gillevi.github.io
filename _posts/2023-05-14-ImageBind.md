@@ -13,13 +13,17 @@ tags:
   - Muti-modal 
 ---
 
-The proposed idea is straightforward - mapping six different modalities to a joint embedding space. This allows data samples from different modalities, which share the same semantic meaning, to be mapped to similar vectors (i.e., vectors that are close in the cosine similarity metric) within the embedding space. Embedding modalities using explicitly aligned training data has been proposed before. For instance, the seminal works of CLIP[1] and ALIGN[2] map images and text to a joint embedding space. AudioCLIP[3] extends CLIP by adding an audio modality, and "Everything at Once"[4] embeds audio, images, and text into a joint mapping space to leverage the audio modality in video retrieval. However, embedding six different modalities - images, text, audio, depth, thermal, and Inertial Measurement Unit (IMU) data - particularly those without explicitly aligned training data or even datasets where they naturally coexist (e.g., you probably wouldn't find dataset of depth images associated with sounds) is a challenge that hasn't been tackled before. In my opinion, this opens the door to many new applications.
+The proposed idea is simple - mapping six different modalities to a joint embedding space. This allows data samples from different modalities, which share the same semantic meaning, to be mapped to similar vectors (i.e., vectors that are close in the cosine similarity metric) within the embedding space. Embedding modalities using explicitly aligned training data has been proposed before. For instance, the seminal works of CLIP[1] and ALIGN[2] map images and text to a joint embedding space. AudioCLIP[3] extends CLIP by adding an audio modality, and "Everything at Once"[4] embeds audio, images, and text into a joint mapping space to leverage the audio modality in video retrieval. However, embedding six different modalities - images, text, audio, depth, thermal, and Inertial Measurement Unit (IMU) data - particularly those without explicitly aligned training data or even datasets where they naturally coexist (e.g., you probably wouldn't find dataset of depth images associated with sounds) is a challenge that hasn't been tackled before. In my opinion, this opens the door to many new applications.
 
 Blog https://ai.facebook.com/blog/imagebind-six-modalities-binding-ai/ 
 Paper https://arxiv.org/abs/2305.05665 
 Code https://github.com/facebookresearch/ImageBind 
 Video https://dl.fbaipublicfiles.com/imagebind/imagebind_video.mp4 
 Demo: https://imagebind.metademolab.com/demo 
+| [Blog post](https://ai.facebook.com/blog/imagebind-six-modalities-binding-ai/), [Paper](https://arxiv.org/abs/2305.05665), [Code](https://github.com/facebookresearch/ImageBind), [Video](https://dl.fbaipublicfiles.com/imagebind/imagebind_video.mp4), [Demo](https://imagebind.metademolab.com/demo)  |
+|:--:|
+| <!-- --> |
+
 
 Figure 1
 
