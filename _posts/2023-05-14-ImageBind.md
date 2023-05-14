@@ -86,11 +86,17 @@ To summarize, the paper demonstrates that cross-modality joint embedding can be 
 
 
 [1] Radford, Alec, et al. "Learning transferable visual models from natural language supervision." International conference on machine learning. PMLR, 2021.
+  
 [2] Jia, Chao, et al. "Scaling up visual and vision-language representation learning with noisy text supervision." International Conference on Machine Learning. PMLR, 2021.
+  
 [3] Guzhov, Andrey, et al. "Audioclip: Extending clip to image, text and audio." ICASSP, 2022.
+  
 [4] Shvetsova, Nina, et al. "Everything at once-multi-modal fusion transformer for video retrieval." CVPR. 2022.
+  
 [5] Oord, Aaron van den, Yazhe Li, and Oriol Vinyals. "Representation learning with contrastive predictive coding." NeurIPS, 2018.
+  
 [6] https://laion.ai/ 
+  
 [7] Schuhmann, Christoph, et al. "Laion-400m: Open dataset of clip-filtered 400 million image-text pairs."  Data Centric AI NeurIPS Workshop 2021.
 [8] Schuhmann, Christoph, et al. "Laion-5b: An open large-scale dataset for training next generation image-text models." NeurIPS 2022
 [9] Gemmeke, Jort F., et al. "Audio set: An ontology and human-labeled dataset for audio events." ICASSP, 2017.
