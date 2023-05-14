@@ -96,7 +96,7 @@ Unfortunately, the paper does not provide any qualitative results on sound-based
   
 To summarize, the paper demonstrates that cross-modality joint embedding can be learned without explicit supervision by using vision as a "binding" modality instead. The paper showcases zero-shot capabilities across modalities. However, as acknowledged by the paper, these are early results, and the model is not yet robust enough for real-world applications. Nonetheless, this research opens the door for further exploration and experimentation.
 
-
+## References
 
 [1] Radford, Alec, et al. "Learning transferable visual models from natural language supervision." International conference on machine learning. PMLR, 2021.
   
@@ -111,11 +111,17 @@ To summarize, the paper demonstrates that cross-modality joint embedding can be 
 [6] https://laion.ai/ 
   
 [7] Schuhmann, Christoph, et al. "Laion-400m: Open dataset of clip-filtered 400 million image-text pairs."  Data Centric AI NeurIPS Workshop 2021.
+  
 [8] Schuhmann, Christoph, et al. "Laion-5b: An open large-scale dataset for training next generation image-text models." NeurIPS 2022
+  
 [9] Gemmeke, Jort F., et al. "Audio set: An ontology and human-labeled dataset for audio events." ICASSP, 2017.
+  
 [10] Song, Shuran, Samuel P. Lichtenberg, and Jianxiong Xiao. "Sun rgb-d: A rgb-d scene understanding benchmark suite." CVPR. 2015.
+  
 [11] Jia, Xinyu, et al. "LLVIP: A visible-infrared paired dataset for low-light vision." CVPR. 2021.
+  
 [12] Grauman, Kristen, et al. "Ego4d: Around the world in 3,000 hours of egocentric video." CVPR. 2022.
+  
 [13] Gabriel Ilharco, Mitchell Wortsman, Ross Wightman, Cade Gordon, Nicholas Carlini, Rohan Taori, Achal Dave, Vaishaal Shankar, Hongseok Namkoong, John Miller, Hannaneh Hajishirzi, Ali Farhadi, and Ludwig Schmidt. Openclip, 2021, https://github.com/mlfoundations/open_clip 
 [14] Nagrani, Arsha, et al. "Learning audio-video modalities from image captions." , ECCV 2022
 [15] Gao, Zijian, et al. "CLIP2TV: Align, Match and Distill for Video-Text Retrieval." arXiv preprint arXiv:2111.05610 (2021).
