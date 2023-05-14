@@ -53,9 +53,13 @@ The zero-shot classification performance of the model can be evaluated using tex
   
 The table below (Table 2 in the paper) details the full zero-shot (blank columns) and emergent zero-shot (blue columns) performances. ImageBind’s performance is given in the second row, while the third row, labeled "Text-Paired," refers to the performance of the best method trained using (text, <other modality>) pairs. The last row, "Absolute SOTA," references the state-of-the-art performance on the benchmarks using explicit labels.
   
-|  ![Emergent zero-shot classification](/posts/ImageBind/Table2.png) |
+ ![Emergent zero-shot classification](/posts/ImageBind/Table2.png) 
+  
+  
+  
+<!--   |  ![Emergent zero-shot classification](/posts/ImageBind/Table2.png) |
 |:--:| 
-| |
+| | -->
 <!-- Emergent zero-shot classification of IMAGEBIND using text prompts highlighted in blue. IMAGEBIND aligns images with text, depth, audio, thermal and IMU modalities. The resulting embedding space can associate text embeddings with the non-image modalities, and leads to strong emergent zero-shot classification. We show strong performance even on non-visual modalities such as audio and IMU. We compare to ‘Text Paired’ baselines wherever possible, which trains with paired text data for that modality. ∗We use the OpenCLIP ViTH [29] on depth rendered as grayscale images. † [26] that uses AS class names as supervision during training, and hence is not “zero shot”. Overall, IMAGEBIND shows strong emergent zero-shot performance, even compared to such upper bounds. We also report the absolute state-of-the-art (SOTA) on each dataset for reference, which typically uses additional supervision, model ensembles etc. We report the top-1 classification accuracy for all datasets except MSR-VTT (Recall@1) and Audioset Audio-only (mAP) -->
   
   
