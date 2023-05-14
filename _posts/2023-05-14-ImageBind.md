@@ -28,7 +28,7 @@ Consider a pair of modalities (I,M), where I represents images and M represents 
 
 **InfoNCE equation**
 
-<!-- $ L_{I,M} = -log /frac{exp(q^T_{i})//tau} {}$ -->
+
 
 There t is a scalar controlling the temperature and j denotes unrelated data samples in the batch, where every j =! i  is considered a negative pair. Optimizing this loss makes q_i and k_i close in the embedding space and optimizing on a large data set thus aligns the two modalities I and M. In practice, the symmetric loss L = L_I,M + L_M,I is used. 
 
